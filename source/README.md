@@ -6,7 +6,7 @@
 
 > bundle exec middleman server
 
-> go to localhost:4567
+> go to localhost:4567  
 
 # This project build three different version of our documentation all from the swagger.yaml file.
 
