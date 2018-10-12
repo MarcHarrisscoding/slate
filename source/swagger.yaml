@@ -1,0 +1,6507 @@
+swagger: '2.0'
+schemes:
+- https
+host: api.gridscale.io
+# basePath: /objects
+info:
+  description: example API
+  version: 1.0.0
+  title: API specification
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    in: header
+    name: X-Auth-Token
+  ApiUserID:
+    type: apiKey
+    in: header
+    name: X-Auth-UserId
+security:
+  - ApiKeyAuth: []
+    ApiUserID: []
+
+paths:
+  /requests/{request_uuid}:
+    get:
+      tags:
+      - "request"
+      summary: "get a request"
+      description: "GET https://api.gridscale.io/requests/{request_uuid} To receive detailed information regarding a specific server, just append the server_uuid onto the /servers endpoint."
+      operationId: "getRequest"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "request_uuid"
+        in: "path"
+        description: "uuid of server"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/RequestGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/servers:
+    get:
+      tags:
+      - "server"
+      summary: "Get all servers"
+      description: "GET https://api.gridscale.io/objects/servers"
+      operationId: "getServers"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/ServersGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    post:
+      tags:
+      - "server"
+      summary: "create a server"
+      description: "POST https://api.gridscale.io/objects/servers Creating a simple server with our API is easy, you can use the code to the right, to create a server."
+      operationId: "createServer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "Request body"
+        description: "Data for a new serve  r"
+        required: true
+        schema:
+          $ref: '#/definitions/ServerCreate'
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/CreateResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+
+  /objects/servers/{server_uuid}:
+    get:
+      tags:
+      - "server"
+      summary: "get a server"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid} To receive detailed information regarding a specific server, just append the server_uuid onto the /servers endpoint."
+      operationId: "getServer"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "uuid of server"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/ServerGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "server"
+      summary: "update a server"
+      description: "PATCH https://api.gridscale.io/objects/servers/{server_uuid} Updating a server with our API is easy, you can use the code to the right, to rename a server, and much more by adding new parameters to your request"
+      operationId: "update Server"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Request body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/ServerUpdate'
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "server"
+      summary: "delete a server"
+      description: "DELETE https://api.gridscale.io/objects/servers/{server_uuid} o Delete a server, just append the server_uuid onto the /servers endpoint and send a DELETE request along with your authentication credentials"
+      operationId: "deleteServer"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/servers/{server_uuid}/events:
+    get:
+      tags:
+      - "server"
+      summary: "Find server event by uuid"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/events"
+      operationId: "getServerEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "The events endpoint for a server, returns a list of all the events on that object. You can alternatively find them as Audit Logs in your expert panel."
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/EventResponse'
+          examples:
+            events:
+              events:
+                - request_uuid: 9f1b47da-4251-495c-a879-38a290aa65fa
+                  user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  timestamp: '2018-02-20T11:51:20Z'
+                  request_status: done
+                  object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  object_type: server
+                  activity: dhcp_add
+                  request_type: server_relation_ipaddr_add
+                  change: Add ip relation to server test
+                - ...: {}
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+  /objects/servers/{server_uuid}/power:
+    get:
+      tags:
+      - "server"
+      summary: "get power status"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/power To find out the status of your sever just send a GET request to the /power endpoint for the specified server."
+      operationId: "getServerPower"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "ID of storage"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/ServerPowerStatus'
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "server"
+      summary: "toogle the power"
+      description: "PATCH https://api.gridscale.io/objects/servers/{server_uuid}/power To turn on and off a server, we need to send a PATCH request to the /power endpoint, with a JSON object, defining the status we want. If power = true, the server will be turned on, and visa-versa."
+      operationId: "updateServerPower"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "ID of server"
+        required: true
+        type: string
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          type: object
+          properties:
+            power:
+              type: boolean
+      responses:
+        200:
+          description: "successful operation"
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+  /objects/servers/{server_uuid}/ips:
+    get:
+      tags:
+      - "server"
+      summary: "get linked ips"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/ips"
+      operationId: "getLinkedIps"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "ID of server"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/LinkedIpsGetResponse'
+          # examples:
+          #   relation:
+          #     ip_relations:
+          #       - ip: 123.123.12.1
+          #         object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+          #         create_time: '2018-02-20T11:51:17Z'
+          #         family: 4
+          #         server_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+          #         prefix: 123.123.12.1/32
+          #       - ...: {}
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    post:
+      tags:
+      - "server"
+      summary: "link ip"
+      description: "POST https://api.gridscale.io/objects/servers/{server_uuid}/ips You will need the UUID of the IP Address and of the server, which you would like to join the IP Address to."
+      operationId: "linkIp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "server_uuid"
+        description: "server uuid"
+        required: true
+        type: string
+      - in: "body"
+        name: "storage uuid"
+        description: "IP uuid which going to be linked"
+        required: true
+        schema:
+          $ref: '#/definitions/LinkIp'
+      responses:
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+
+  /objects/servers/{server_uuid}/ips/{ip_uuid}:
+    get:
+      tags:
+      - "server"
+      summary: "Find linked ip"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/ips/{ip_uuid}"
+      operationId: "getLinkedIp"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "The UUID of the server, that relates to the IP you are requesting."
+        required: true
+        type: string
+      - name: "ip_uuid"
+        in: "path"
+        description: "The UUID of the IP Address you're requesting."
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            # ip_relation:
+          #     type: object
+          #     properties:
+            $ref: '#/definitions/LinkedIpGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "server"
+      summary: "delete ip relation"
+      description: "DELETE https://api.gridscale.io/objects/servers/{server_uuid}/ips/{ip_uuid}"
+      operationId: "unlinkIp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "server_uuid"
+        description: "server uuid"
+        required: true
+        type: string
+      - in: "path"
+        name: "ip_uuid"
+        description: "ip uuid"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+  /objects/servers/{server_uuid}/storages:
+    get:
+      tags:
+      - "server"
+      summary: "Get linked storages"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/storages"
+      operationId: "getLInkedStorages"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "ID of server"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/LinkedStoragesGetResponse'
+
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+    post:
+      tags:
+      - "server"
+      summary: "link storage"
+      description: "POST https://api.gridscale.io/objects/servers/{server_uuid}/storages Once the storage is linked, you'll receive an empty body, with a 202 response"
+      operationId: "linkStorage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "server_uuid"
+        description: "server uuid"
+        required: true
+        type: string
+      - in: "body"
+        name: "storage uuid"
+        description: "storage uuid which going to be linked"
+        required: true
+        schema:
+          $ref: '#/definitions/LinkStorage'
+      responses:
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+
+  /objects/servers/{server_uuid}/storages/{storage_uuid}:
+    get:
+      tags:
+      - "server"
+      summary: "Find linked storage"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/storages/{storage_uuid}"
+      operationId: "getLinkedStorage"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "ID of server"
+        required: true
+        type: string
+      - name: "storage_uuid"
+        in: "path"
+        description: "ID of storage"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/LinkedStorageGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "server"
+      summary: "linked storage patch"
+      description: "linked storage patch"
+      operationId: "updateLinkedStrorage"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "ID of server"
+        required: true
+        type: string
+
+      - name: "storage_uuid"
+        in: "path"
+        description: "ID of storage"
+        required: true
+        type: string
+
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/LinkedStorageUpdate'
+
+
+
+      responses:
+        200:
+          description: "successful operation"
+          # schema:
+          #   $ref: '#/definitions/Storage'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "server"
+      summary: "unlink storages"
+      description: "DELETE https://api.gridscale.io/objects/servers/{server_uuid}/storages/{storage_uuid}"
+      operationId: "unlinkStorage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "server_uuid"
+        description: "The UUID of the server, that relates to the Storage you are removing."
+        required: true
+        type: string
+      - in: "path"
+        name: "storage_uuid"
+        description: "The UUID of the Storage you are removing."
+        required: true
+        type: string
+      responses:
+        202:
+          $ref: '#/responses/202'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/servers/{server_uuid}/networks:
+    get:
+      tags:
+      - "server"
+      summary: "Get linked networks"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/networks"
+      operationId: "getLinkedNetworks"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "ID of server"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/LinkedNetworksGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+    post:
+      tags:
+      - "server"
+      summary: "link network"
+      description: "POST https://api.gridscale.io/objects/servers/{server_uuid}/networks"
+      operationId: "linkNetwork"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "server_uuid"
+        description: "server uuid"
+        required: true
+        type: string
+      - in: "body"
+        name: "network uuid"
+        description: "Network UUID which is going to be linked"
+        required: true
+        schema:
+          $ref: '#/definitions/LinkNetwork'
+      responses:
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+
+  /objects/servers/{server_uuid}/networks/{network_uuid}:
+    get:
+      tags:
+      - "server"
+      summary: "Get linked network"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/networks/{network_uuid}"
+      operationId: "getLinkedNetwork"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "The UUID of the server, that relates to the Network you are requesting."
+        required: true
+        type: string
+      - name: "network_uuid"
+        in: "path"
+        description: "The UUID of the network you're requesting."
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/LinkedNetworkGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+    patch:
+      tags:
+      - "server"
+      - "firewall"
+      summary: "linked network patch"
+      description: "PATCH https://api.gridscale.io/objects/servers/{server_uuid}/networks/{network_uuid}"
+      operationId: "updateLinkedNetwork"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "The UUID of the server, that relates to the network you are requesting."
+        required: true
+        type: string
+
+      - name: "network_uuid"
+        in: "path"
+        description: "The UUID of the network you're requesting."
+        required: true
+        type: string
+
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/LinkedNetworkUpdate'
+      responses:
+        202:
+          $ref: '#/responses/202'
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "server"
+      summary: "unlink network"
+      description: "DELETE https://api.gridscale.io/objects/servers/{server_uuid}/isoiamges/{object_uuid}"
+      operationId: "unlinkNetwork"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "server_uuid"
+        description: "The UUID of the server, that relates to the IP you are requesting."
+        required: true
+        type: string
+      - in: "path"
+        name: "network_uuid"
+        description: "The UUID of the IP Address you're requesting."
+        required: true
+        type: string
+      responses:
+        202:
+          $ref: '#/responses/202'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+
+  /objects/servers/{server_uuid}/isoimages:
+    get:
+      tags:
+      - "server"
+      summary: "Find linked isoimages"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/isoimages"
+      operationId: "getLinkedIsoimages"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "ID of server"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/LinkedIsoimagesGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+    post:
+      tags:
+      - "server"
+      summary: "link isoimage"
+      description: "POST https://api.gridscale.io/objects/servers/{server_uuid}/isoimages"
+      operationId: "linkIsoimage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "server_uuid"
+        description: "The UUID of the server, that relates to the Iso image you are requesting."
+        required: true
+        type: string
+      - in: "body"
+        name: "iso image uuid"
+        description: "iso image uuid which is going to be linked"
+        required: true
+        schema:
+          $ref: '#/definitions/LinkIsoimage'
+      responses:
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+
+  /objects/servers/{server_uuid}/isoimages/{isoimage_uuid}:
+    get:
+      tags:
+      - "server"
+      summary: "Find linked isoimage"
+      description: "GET https://api.gridscale.io/objects/servers/{server_uuid}/isoimages/{object_uuid}"
+      operationId: "getLInkedIsoimage"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "The UUID of the server, that relates to the ISO Image you are requesting."
+        required: true
+        type: string
+      - name: "isoimage_uuid"
+        in: "path"
+        description: "The UUID of the ISO-Image you're requesting."
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/LinkedIsoimageGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "server"
+      summary: "linked isoimage patch"
+      description: "PATCH https://api.gridscale.io/objects/servers/{server_uuid}/isoimages/{object_uuid}"
+      operationId: "updateLinkedIsoimage"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "server_uuid"
+        in: "path"
+        description: "The UUID of the server, that relates to the ISO Image you are requesting."
+        required: true
+        type: string
+      - name: "isoimage_uuid"
+        in: "path"
+        description: "The UUID of the ISO-Image you're requesting."
+        required: true
+        type: string
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/LinkedIsoimageUpdate'
+      responses:
+        202:
+          $ref: '#/responses/202'
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "server"
+      summary: "GET https://api.gridscale.io/objects/servers/{server_uuid}/isoiamges/{object_uuid}"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "server_uuid"
+        description: "The UUID of the server, that relates to the ISO-Image you are requesting."
+        required: true
+        type: string
+      - in: "path"
+        name: "isoimage_uuid"
+        description: "The UUID of the ISO-Image you're requesting."
+        required: true
+        type: string
+      responses:
+        202:
+          $ref: '#/responses/202'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+
+  /objects/storages:
+    get:
+      tags:
+      - "storage"
+      summary: "get all storages"
+      description: "GET https://api.gridscale.io/objects/storages"
+      operationId: "getStorages"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/StoragesGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+    post:
+      tags:
+      - "storage"
+      summary: "Add a new storage"
+      description: "POST https://api.gridscale.io/objects/storages"
+      operationId: "createStorage"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "Request body"
+        description: ""
+        required: true
+        schema:
+          $ref: '#/definitions/StorageCreate'
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/CreateResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/storages/{object_uuid}:
+    get:
+      tags:
+      - "storage"
+      summary: "get a storage"
+      description: "GET https://api.gridscale.io/objects/storages/{storage_uuid}"
+      operationId: "getStorage"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "The UUID of an object is always unique, and refers to a specific object."
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/StorageGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+    patch:
+      tags:
+      - "storage"
+      summary: "Update storage"
+      description: "PATCH https://api.gridscale.io/objects/storages/{storage_uuid}"
+      operationId: "updateStorage"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/StorageUpdate'
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "storage"
+      summary: "delete storage"
+      description: "DELETE https://api.gridscale.io/objects/storages/{storage_uuid}"
+      operationId: "deleteStorage"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/storages/{storage_uuid}/events:
+    get:
+      tags:
+      - "storage"
+      summary: "Find storage event by uuid"
+      description: "Returns a single storage"
+      operationId: "getStorageEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "storage_uuid"
+        in: "path"
+        description: "uuid of storage"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/EventResponse'
+          examples:
+           events:
+             events:
+               - change: Create new storage test with 10 GiB capacity
+                 request_type: storage_add
+                 object_type: storage
+                 object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                 request_uuid: a25bfc91-37c4-45a9-8876-b3bc28661f5d
+                 timestamp: '2018-03-13T13:49:28Z'
+                 activity: add
+                 request_status: done
+                 user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+
+
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/networks:
+    get:
+      tags:
+      - "network"
+      summary: "Get all Networks"
+      description: "GET https://api.gridscale.io/objects/networks"
+      operationId: "getNetworks"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/NetworksGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    post:
+      tags:
+      - "network"
+      summary: "create Networks"
+      description: "POST https://api.gridscale.io/objects/networks"
+      operationId: "createNetworks"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "Request body"
+        description: "Data for a new Network"
+        required: true
+        schema:
+          $ref: '#/definitions/NetworkCreate'
+      responses:
+        202:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/CreateResponse'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/networks/{network_uuid}:
+    get:
+      tags:
+      - "network"
+      summary: "Get a network"
+      description: "GET https://api.gridscale.io/objects/networks/{network_uuid}"
+      operationId: "getNetwork"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "network_uuid"
+        in: "path"
+        description: "The UUID of an object is always unique, and refers to a specific object."
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/NetworkGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "network"
+      summary: "Update a network"
+      description: "PATCH https://api.gridscale.io/objects/networks/{network_uuid}"
+      operationId: "updateNetwork"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "network_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Request body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/NetworkUpdate'
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "network"
+      summary: "delete network"
+      description: "DELETE https://api.gridscale.io/objects/networks/{network_uuid}"
+      operationId: "deleteNetwork"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "network_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/networks/{network_uuid}/events:
+    get:
+      tags:
+      - "network"
+      summary: "Find network event by uuid"
+      description: "GET https://api.gridscale.io/objects/networks/{network_uuid}/events"
+      operationId: "getNetworkEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "network_uuid"
+        in: "path"
+        description: "ID of storage"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/EventResponse'
+          examples:
+            events:
+              events:
+              - object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                request_uuid: f83d74d1-53cb-462b-82b1-db87ab77ce67
+                object_type: network
+                change: 'Update network Public Network with: name=Public Network test'
+                user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                timestamp: '2018-03-14T08:40:32Z'
+                request_status: done
+                request_type: network_update
+                activity: update
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/ips:
+    get:
+      tags:
+      - "ip"
+      summary: "get all ips"
+      description: "GET https://api.gridscale.io/objects/ips"
+      operationId: "getIps"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/IpsGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    post:
+      tags:
+      - "ip"
+      summary: "Add a new ip"
+      description: "POST https://api.gridscale.io/objects/ips"
+      operationId: "createIp"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "Data"
+        description: "Data for a new ip"
+        required: true
+        schema:
+          $ref: '#/definitions/IpCreate'
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/IpCreateResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/ips/{object_uuid}:
+    get:
+      tags:
+      - "ip"
+      summary: "Find object by uuid"
+      description: "GET https://api.gridscale.io/objects/ips/{ip_uuid}"
+      operationId: "getIp"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "uuid of ip"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/IpGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "ip"
+      summary: "Updated storage"
+      description: "PATCH https://api.gridscale.io/objects/ips/{ip_uuid}"
+      operationId: "updateIp"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/IpUpdate'
+      responses:
+        204:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "ip"
+      summary: "delete storage"
+      description: "DELETE https://api.gridscale.io/objects/ips/{ip_uuid}"
+      operationId: "deleteIp"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+  /ips/{ip_uuid}/events:
+    get:
+      tags:
+      - "ip"
+      summary: "Find ip event by uuid"
+      description: "GET https://api.gridscale.io/objects/ips/{ip_uuid}/events"
+      operationId: "getIpEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ip_uuid"
+        in: "path"
+        description: "uuid of ip"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/EventResponse'
+          examples:
+            events:
+              events:
+                - object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  request_uuid: 03f1de09-e5de-4d82-aa03-6f82c63d2d64
+                  object_type: ipaddr
+                  change: 'Update IP 123.123.12.1 with: failover=False'
+                  user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  timestamp: '2018-03-14T11:54:33Z'
+                  request_status: done
+                  request_type: ipaddr_update
+                  activity: update
+                - object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  request_uuid: 8e9a4818-d145-4aa3-918a-60cc32b37e96
+                  object_type: ipaddr
+                  change: Request new IP 123.123.12.1
+                  user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  timestamp: '2018-03-14T11:44:49Z'
+                  request_status: done
+                  request_type: ipaddr_add
+                  activity: add
+
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/firewalls:
+    get:
+      tags:
+      - "firewall"
+      summary: "get all firewalls"
+      description: "GET https://api.gridscale.io/objects/firewalls"
+      operationId: "getFirewalls"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/FirewallsGetResponse'
+        202:
+          $ref: '#/responses/202'
+        401:
+          $ref: '#/responses/401'
+        404:
+          $ref: '#/responses/404'
+
+    post:
+      tags:
+      - "firewall"
+      summary: "Add a new firewall"
+      description: "POST https://api.gridscale.io/objects/firewalls/"
+      operationId: "createFirewall"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "Data"
+        description: "Data for a new firewall"
+        required: true
+        schema:
+          $ref: '#/definitions/FirewallCreate'
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/CreateResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/firewalls/{object_uuid}:
+    get:
+      tags:
+      - "firewall"
+      summary: "Find object by uuid"
+      description: "GET https://api.gridscale.io/objects/firewalls"
+      operationId: "getFirewall"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "ID of firewall"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/FirewallGetResponse'
+        202:
+          $ref: '#/responses/202'
+        401:
+          $ref: '#/responses/401'
+        404:
+          $ref: '#/responses/404'
+
+
+    patch:
+      tags:
+      - "firewall"
+      summary: "Updated firewall"
+      description: "PATCH https://api.gridscale.io/objects/firewalls/{firewall_uuid}"
+      operationId: "updateFirewall"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/FirewallUpdate'
+
+      responses:
+        200:
+          description: "successful operation"
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "firewall"
+      summary: "delete firewall"
+      description: "To delete a firewall just send a delete request to the /objects/firewalls/{firewall_uuid} endpoint."
+      operationId: "deleteId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/firewalls/{firewall_uuid}/events:
+    get:
+      tags:
+      - "firewall"
+      summary: "Find firewall event by uuid"
+      description: "GET https://api.gridscale.io/objects/firewalls/{firewall_uuid}"
+      operationId: "getFirewallEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "firewall_uuid"
+        in: "path"
+        description: "ID of storage"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/EventResponse'
+          examples:
+            firewall_events:
+              events:
+                - activity: add
+                  user_uuid: 96a2bf78-69e2-4efa-a915-d33a85ebaa7c
+                  timestamp: '2018-04-20T13:09:43Z'
+                  request_uuid: c744e78f-47b0-4edf-8723-581809efadd7
+                  object_uuid: 690d380d-5f46-47be-9729-951fb45f8ef9
+                  change: Create new firewall test
+                  request_type: firewall_add
+                  object_type: firewall
+                  request_status: done
+
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/isoimages:
+    get:
+      tags:
+      - "isoimage"
+      summary: "get all isoimages"
+      description: "POST https://api.gridscale.io/objects/isoimages"
+      operationId: "getIsoimages"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/IsoimagesGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    post:
+      tags:
+      - "isoimage"
+      summary: "Add a new isoimage"
+      description: "POST https://api.gridscale.io/objects/isoimages"
+      operationId: "createIsoimages"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "request body"
+        description: "Data for a new isoimage"
+        required: true
+        schema:
+          $ref: '#/definitions/IsoimageCreate'
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/CreateResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/isoimages/{object_uuid}:
+    get:
+      tags:
+      - "isoimage"
+      summary: "Find object by uuid"
+      description: "GET https://api.gridscale.io/objects/isoimages/{isoimage_uuid}"
+      operationId: "getIsoimage"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "ID of isoimage"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/IsoimageGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "isoimage"
+      summary: "Updated isoimage"
+      description: "PATCH https://api.gridscale.io/objects/isoimages/{isoimage_uuid}"
+      operationId: "updateIsoimage"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/IsoimageUpdate'
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "isoimage"
+      summary: "delete isoimage"
+      description: "DELETE https://api.gridscale.io/objects/isoimages/{isoimage_uuid}"
+      operationId: "deleteIsoimage"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/isoimages/{isoimage_uuid}/events:
+    get:
+      tags:
+      - "isoimage"
+      summary: "Find isoimage event by uuid"
+      description: "GET https://api.gridscale.io/objects/isoimages/{isoimage_uuid}/events"
+      operationId: "getIsoimageEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "isoimage_uuid"
+        in: "path"
+        description: "uuid of Isoimage"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/EventResponse'
+          examples:
+            events:
+              events:
+                - request_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  timestamp: '2018-03-15T07:42:48Z'
+                  request_status: done
+                  object_type: isoimage
+                  activity: update
+                  user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  change: 'Update ISO-Image test with: name=test2'
+                  request_type: isoimage_update
+                  object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                - request_uuid: bcc3e506-0f0b-4af2-a7d1-4c30f7828529
+                  timestamp: '2018-03-15T07:08:03Z'
+                  request_status: done
+                  object_type: isoimage
+                  activity: add
+                  user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  change: Create new ISO-Image test
+                  request_type: isoimage_add
+                  object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/sshkeys:
+    get:
+      tags:
+      - "SSH key"
+      summary: "get all sshkeys"
+      description: "GET https://api.gridscale.io/objects/sshkeys"
+      operationId: "getSshKeys"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/SshkeysGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    post:
+      tags:
+      - "SSH key"
+      summary: "add new sshkeys"
+      description: "POST https://api.gridscale.io/objects/sshkeys"
+      operationId: "createSshKey"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "request body"
+        description: "Data for a new SSHkey"
+        required: true
+        schema:
+          $ref: '#/definitions/SshkeyCreate'
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/CreateResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/sshkeys/{sshkey_uuid}:
+    get:
+      tags:
+      - "SSH key"
+      summary: "get sshkey"
+      description: "GET https://api.gridscale.io/objects/sshkeys/{sshkey_uuid}"
+      operationId: "getSshKey"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sshkey_uuid"
+        in: "path"
+        description: "ID of sshkey"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/SshkeyGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "SSH key"
+      summary: "update sshkey"
+      description: "POST https://api.gridscale.io/objects/sshkeys/{sshkey_uuid}"
+      operationId: "updateSshKey"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "sshkey_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: '#/definitions/SshkeyUpdate'
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "SSH key"
+      summary: "delete sshkey"
+      description: "POST https://api.gridscale.io/objects/sshkeys/{sshkey_uuid}"
+      operationId: "deleteSshKey"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sshkey_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/sshkeys/{sshkey_uuid}/events:
+    get:
+      tags:
+      - "SSH key"
+      summary: "delete sshkey"
+      description: "POST https://api.gridscale.io/objects/sshkeys/{sshkey_uuid}"
+      operationId: "getSshKeyEvents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sshkey_uuid"
+        in: "path"
+        description: "uuid of sshkey"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/EventResponse'
+          examples:
+            events:
+              events:
+                - timestamp: '2018-03-15T19:18:11Z'
+                  change: Create new sshkey test2
+                  user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  request_type: sshkey_add
+                  object_type: sshkey
+                  request_uuid: a7d6d205-37dd-42e1-a166-b950c771bda9
+                  request_status: done
+                  object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  activity: add
+
+
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/locations:
+    get:
+      tags:
+      - "Location"
+      summary: "get all locations"
+      description: "GET https://api.gridscale.io/objects/locations"
+      operationId: "getLocations"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/LocationsGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+
+  /objects/locations/{location_uuid}:
+    get:
+      tags:
+      - "Location"
+      summary: "get location"
+      description: "GET https://api.gridscale.io/objects/locations/{location_uuid}"
+      operationId: "getLocation"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "location_uuid"
+        in: "path"
+        description: "ID of sshkey"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/LocationGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/locations/{location_uuid}/ips:
+    get:
+      tags:
+      - "Location"
+      summary: "get locations ips"
+      description: "GET https://api.gridscale.io/objects/locations/{location_uuid}/ips"
+      operationId: "getLocationIps"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "location_uuid"
+        in: "path"
+        description: "uuid of location"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/IpsGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/locations/{location_uuid}/isoimages:
+    get:
+      tags:
+      - "Location"
+      summary: "get locations isoimages"
+      description: "GET https://api.gridscale.io/objects/locations/{location_uuid}/isoimages"
+      operationId: "getLocationIsoimages"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "location_uuid"
+        in: "path"
+        description: "uuid of location"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/IsoimagesGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/locations/{location_uuid}/networks:
+    get:
+      tags:
+      - "Location"
+      summary: "get locations networks"
+      description: "GET https://api.gridscale.io/objects/locations/{location_uuid}/networks"
+      operationId: "getLocationNetworks"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "location_uuid"
+        in: "path"
+        description: "uuid of location"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/NetworksGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/locations/{location_uuid}/servers:
+    get:
+      tags:
+      - "Location"
+      summary: "get locations networks"
+      description: "GET https://api.gridscale.io/objects/locations/{location_uuid}/servers"
+      operationId: "getLocationServers"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "location_uuid"
+        in: "path"
+        description: "uuid of location"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/ServersGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/locations/{location_uuid}/snapshots:
+    get:
+      tags:
+      - "Location"
+      summary: "get locations snapshots"
+      description: "GET https://api.gridscale.io/objects/locations/{location_uuid}/snapshots"
+      operationId: "getLocationSnapshots"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "location_uuid"
+        in: "path"
+        description: "uuid of location"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          # schema:
+          #   $ref: '#/definitions/SnapshotsGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+  /objects/locations/{location_uuid}/storages:
+    get:
+      tags:
+      - "Location"
+      summary: "get locations storages"
+      description: "GET https://api.gridscale.io/objects/locations/{location_uuid}/storages"
+      operationId: "getLocationStorage"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "location_uuid"
+        in: "path"
+        description: "uuid of location"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/StoragesGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/locations/{location_uuid}/templates:
+    get:
+      tags:
+      - "Location"
+      summary: "get locations templates"
+      description: "GET https://api.gridscale.io/objects/locations/{location_uuid}/templates"
+      operationId: "getLocationTemplates"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "location_uuid"
+        in: "path"
+        description: "uuid of location"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/TemplatesGetResponse'
+          examples:
+            templates:
+              templates:
+                x123xx1x-123x-1x12-123x-123xxx123x1x:
+                  status: active
+                  ostype: windows
+                  version: Windows Server 2016 Standard
+                  location_iata: fra
+                  change_time: '2017-10-30T11:50:35Z'
+                  private: false
+                  object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+                  location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+                  license_product_no: 800002
+                  create_time: '2016-10-24T14:50:23Z'
+                  usage_in_minutes: 0
+                  name: Windows Server 2016
+                  capacity: 32
+                  location_name: de/fra
+                  distro: Windows Server
+                  description: SPLA-Licensed
+                  current_price: 0
+                  location_country: de
+
+
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/objectstorages/access_keys:
+    get:
+      tags:
+      - "object storage"
+      summary: "get all access_keys"
+      description: "GET https://api.gridscale.io/objects/objectstorages/access_keys"
+      operationId: "getAccessKeys"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/AccessKeysGetResponse'
+        202:
+          $ref: '#/responses/202'
+        401:
+          $ref: '#/responses/401'
+        404:
+          $ref: '#/responses/404'
+
+    post:
+      tags:
+      - "object storage"
+      summary: "Add a new access key"
+      description: "POST https://api.gridscale.io/objects/fobjectstorages/access_keys"
+      operationId: "createAccessKey"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "Data"
+        description: "Data for a new Accesss key"
+        required: true
+        schema:
+          $ref: '#/definitions/AccessKeyCreate'
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/AccessKeyCreateResponse'
+            # example:
+            #   access_key:
+            #     access_key: '{access_key}'
+            #     secret_key: '{secret_key}'
+            #   request_uuid: da80d4ac-bb7a-4562-8100-9954cc962a41
+
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/objectstorages/access_keys/{accesskey}:
+    get:
+      tags:
+      - "object storage"
+      summary: "Find access key"
+      description: "GET https://api.gridscale.io/objects/objectstorages/access_keys/{accesskey}"
+      operationId: "getAccessKey"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "accesskey"
+        in: "path"
+        description: "ID of firewall"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/AccessKeyGetResponse'
+        202:
+          $ref: '#/responses/202'
+        401:
+          $ref: '#/responses/401'
+        404:
+          $ref: '#/responses/404'
+
+    delete:
+      tags:
+      - "object storage"
+      summary: "delete access key"
+      description: "GET https://api.gridscale.io/objects/objectstorages/access_keys/{accesskey}"
+      operationId: "deleteAccessKey"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "accesskey"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        404:
+          $ref: '#/responses/404'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/objectstorages/buckets:
+    get:
+      tags:
+      - "object storage"
+      summary: "get all buckets"
+      description: "GET https://api.gridscale.io/objects/objectstorages/buckets"
+      operationId: "getBuckets"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/BucketsGetResponse'
+        202:
+          $ref: '#/responses/202'
+        401:
+          $ref: '#/responses/401'
+        404:
+          $ref: '#/responses/404'
+
+
+  /objects/objectstorages/buckets/{bucket_name}:
+    get:
+      tags:
+      - "object storage"
+      summary: "Find a bucket"
+      description: "GET https://api.gridscale.io/objects/objectstorages/buckets/{bucket_name}"
+      operationId: "getBucket"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "bucket_name"
+        in: "path"
+        description: "ID of firewall"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/BucketGetResponse'
+        202:
+          $ref: '#/responses/202'
+        401:
+          $ref: '#/responses/401'
+        404:
+          $ref: '#/responses/404'
+
+
+  /objects/cas/tasks:
+    get:
+      tags:
+      - "cas task"
+      summary: "get all cas tasks"
+      description: "GET https://api.gridscale.io/objects/cas/tasks"
+      operationId: "getCasTasks"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/CasTasksGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    post:
+      tags:
+      - "cas task"
+      summary: "Add a new cas task"
+      description: ""
+      operationId: "createCasTask"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "Request body"
+        description: "Data for a new cas task"
+        required: true
+        schema:
+          $ref: '#/definitions/CasCreate'
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/CreateResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/cas/tasks/{object_uuid}:
+    get:
+      tags:
+      - "cas task"
+      summary: "Find object by uuid"
+      description: "Returns a single cas task"
+      operationId: "getCasTask"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "uuid of cas task"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/CasTaskGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "cas task"
+      summary: "Updated cas task"
+      description: "PATCH https://api.gridscale.io/objects/cas/tasks/{cas_uuid}"
+      operationId: "updateCasTask"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated cas task"
+        required: true
+        schema:
+          $ref: '#/definitions/CasCreate'
+
+      responses:
+        202:
+          description: "The request has been accepted, but will run at a later date. The success of the request can not be guaranteed."
+          schema:
+            type: object
+            properties:
+              request_uuid:
+                type: string
+                format: uuid
+            example:
+              request_uuid: "54be0369-9ef1-431f-b54b-cebc7cd8ff40"
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "cas task"
+      summary: "delete cas task"
+      description: "DELETE https://api.gridscale.io/objects/cas/tasks/{cas_uuid}"
+      operationId: "deleteCasTask"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+  /objects/cas/events:
+    get:
+      tags:
+      - "cas task"
+      summary: "Find cas events event"
+      description: "Returns cas' event"
+      operationId: "getCasEvents"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/cas/actions:
+    get:
+      tags:
+      - "cas task"
+      summary: "Find cas action "
+      description: "Returns cas' action"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+
+  /objects/paas/services:
+    get:
+      tags:
+      - "PaaS"
+      summary: "get all PaaS"
+      description: ""
+      operationId: "getPaasServices"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/PaasServicesGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    post:
+      tags:
+      - "PaaS"
+      summary: "Add a new PaaS"
+      description: "It only takes two parameters to create a Platform service, you will need to find the UUID of the Service you would like to create with a GET request to the /service_templates endpoint."
+      operationId: 'createPaasServices'
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "Data"
+        description: "Data for a new cas task"
+        required: true
+        schema:
+          $ref: '#/definitions/PaasCreate'
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/PaasCreateResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/paas/services/{object_uuid}:
+    get:
+      tags:
+      - "PaaS"
+      summary: "Find object by uuid"
+      description: "Returns a single paas"
+      operationId: "getPaasService"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "ID of paas"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/PaasServiceGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "PaaS"
+      summary: "Updated PaaS "
+      description: "Once a service has been created, it's service type cannot be changed, we can only update the Name and labels of a service."
+      operationId: "updatePaasService"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated PaaS"
+        required: true
+        schema:
+          $ref: '#/definitions/PaasUpdateRequest'
+      responses:
+        200:
+          description: "successful operation"
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "PaaS"
+      summary: "delete PaaS"
+      description: ""
+      operationId: "deletePaasService"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "object_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/paas/service_templates:
+    get:
+      tags:
+      - "PaaS"
+      summary: "get all PaaS templates"
+      description: " Here is a list of Service Templates that you can use to create a service. You will need the object_uuid when creating a new Service."
+      operationId: "getServiceTemplates"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/PaasServiceTemplatesGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /objects/paas/security_zones:
+    get:
+      tags:
+      - "PaaS"
+      summary: "get all PaaS security_zones"
+      description: "GET https://api.gridscale.io/objects/paas/security_zones"
+      operationId: "getSecurityZones"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/PaasSecurityZonesGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    post:
+      tags:
+      - "PaaS"
+      summary: "Add a new PaaS security zone"
+      description: "A security zone essentially works like a network. It connects services that are located within the zone with servers that are connected to the zone. The first security zone will be created by us on demand, and it will then be used by default. If you would like to use another zone, you would have to create it yourself first."
+      operationId: "createSecurityZone"
+      consumes:
+      - "application/json"
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      - "multipart/form-data"
+      parameters:
+      - in: "body"
+        name: "Data"
+        description: "Data for a new security_zones"
+        required: true
+        schema:
+          $ref: '#/definitions/PaasSecurityZoneCreate'
+      responses:
+        202:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/PaasSecurityZoneCreateResponse'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+  /paas/security_zones/{paas_security_zone_uuid}:
+    get:
+      tags:
+      - "PaaS"
+      summary: "Find object by uuid"
+      description: "Returns a single paas security zone"
+      operationId: "getSecurityZone"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "paas_security_zone_uuid"
+        in: "path"
+        description: "ID of paas"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/PaasSecurityZoneGetResponse'
+        202:
+          $ref: '#/responses/202'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    patch:
+      tags:
+      - "PaaS"
+      summary: "Updated PaaS security zone "
+      description: "A security zone essentially works as a network. It connects services that are located within the zone with servers that are connected to the zone. The first security zone will be created by us on demand, and it will then be used by default. If you would like to use another zone, you would have to create it yourself first."
+      operationId: "updateSecurityZone"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "paas_security_zone_uuid"
+        in: "path"
+        description: "object that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated PaaS"
+        required: true
+        schema:
+          $ref: '#/definitions/PaasSecurityZoneUpdate'
+
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+    delete:
+      tags:
+      - "PaaS"
+      summary: "delete PaaS security zone"
+      description: ""
+      operationId: "deleteSecurityZone"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "paas_security_zone_uuid"
+        in: "path"
+        description: "object that need to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          $ref: '#/responses/204'
+        400:
+          $ref: '#/responses/400'
+        401:
+          $ref: '#/responses/401'
+        402:
+          $ref: '#/responses/402'
+        403:
+          $ref: '#/responses/403'
+        404:
+          $ref: '#/responses/404'
+        405:
+          $ref: '#/responses/405'
+        409:
+          $ref: '#/responses/409'
+        415:
+          $ref: '#/responses/415'
+        424:
+          $ref: '#/responses/424'
+
+responses:
+  202:
+    description: "The request has been accepted, but will run at a later date. The success of the request can not be guaranteed."
+  204:
+    description: "The request was successful, but the answer deliberately contains no data."
+  400:
+    description: "The request message was built incorrectly."
+  401:
+    description: "The request can not be performed without a valid authentication. X-Auth UserId or X-Auth token HTTP header is not set or the userID / token is invalid."
+  402:
+    description: "Action can not be executed - not provided any or invalid payment methods."
+  403:
+    description: "The request was not carried out due to lack of authorization of the user or because an impossible action was requested."
+  404:
+    description: "The requested resource was not found. Will also be used if you do a resource exists, but the user does not have permission for it."
+  405:
+    description: "The request may be made only with other HTTP methods (eg GET rather than POST)."
+  409:
+    description: "The request was made under false assumptions. For example, a user can not be created twice with the same email."
+  415 :
+    description: "The contents of the request have been submitted with an invalid media type. All POST or PATCH requests must have 'Content-Type : application / json' as a header, and send a JSON object as a payload."
+  424:
+    description: "The request could not be performed because the object is in the wrong status."
+
+definitions:
+  relation:
+    type: "object"
+    description: "Objects related to this object"
+    properties:
+      object1:
+        type: array
+        items:
+          type: object
+
+  ServerCreate:
+    type: object
+    required:
+    - "location_uuid"
+    - "name"
+    - "cores"
+    - "memory"
+    properties:
+      name:
+        $ref: "#/definitions/name"
+      cores:
+        type: integer
+        description: "The number of server cores."
+      memory:
+        type: integer
+        description: "The amount of server memory in GB."
+      location_uuid:
+        type: string
+        description: "The UUID of the datacenter you would like to hold your server. A list of available data centres can be found with a GET request on the /locations endpoint."
+      labels:
+        $ref: "#/definitions/labels"
+      status:
+        $ref: "#/definitions/status"
+      availability_zone:
+        type: string
+        description: "Defines which Availability-Zone the Server is placed."
+      auto_recovery:
+        type: string
+        description: "If the server should be auto-started in case of a failure (default=true)."
+    example:
+      name: "string"
+      cores: 1
+      memory: 2
+      location_uuid: "45ed677b-3702-4b36-be2a-a2eab9827950"
+
+  ServerUpdate:
+    type: object
+    properties:
+      name:
+        $ref: "#/definitions/name"
+      cores:
+        type: integer
+        description: "The number of server cores."
+      memory:
+        type: integer
+        description: "The amount of server memory in GB."
+      labels :
+        $ref: "#/definitions/labels"
+      availability_zone:
+        type: string
+        description: "Defines which Availability-Zone the Server is placed."
+      auto_recovery:
+        type: string
+        description: "If the server should be auto-started in case of a failure (default=true)."
+    example:
+      name: "Updated Name"
+
+
+  Server:
+    type: "object"
+
+    properties:
+      cores:
+        type: integer
+        description: "Number of server cores"
+      relations:
+        $ref: "#/definitions/relation"
+      legacy:
+        type: boolean
+        description: "Legacy-Hardware emulation instead of virtio hardware. If enabled, hotplugging cores, memory, storage, network, etc. will not work, but the server will most likely run every x86 compatible operating system. This mode comes with a performance penalty, as emulated hardware does not benefit from the virtio driver infrastructure"
+      memory:
+        type: integer
+        description: "Indicates the amount of memory in GB."
+      console_token:
+        type: string
+        description: "The token used by the panel to open the websocket VNC connection to the server console"
+      usage_in_minutes_memory:
+        type: integer
+        description: "Total minutes of memory used"
+      auto_recovery:
+        type: boolean
+        description: "If the server should be auto-started in case of a failure (default=true)."
+      create_time:
+        $ref: '#/definitions/create_time'
+      current_price:
+        $ref: '#/definitions/current_price'
+      location_country:
+        $ref: '#/definitions/location_country'
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+      usage_in_minutes_cores:
+        type: integer
+        description: "Total minutes of cores used"
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      change_time:
+        $ref: '#/definitions/change_time'
+      availability_zone:
+        type: string
+        description: "Which Availability-Zone the Server is placed"
+      location_iata:
+        $ref: '#/definitions/location_iata'
+      labels:
+        $ref: '#/definitions/labels'
+      hardware_profile:
+        type: string
+        description: ""
+      location_name:
+        $ref: '#/definitions/location_name'
+      power:
+        type: boolean
+        description: "The power status of the server"
+      name:
+        $ref: '#/definitions/name'
+      status:
+        $ref: '#/definitions/status'
+    example:
+      cores: 1
+      relations:
+        storages:
+          - capacity: 11
+            server_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            last_used_template: ec4ef18f-84df-42bb-b7c4-c2957635ee53
+            controller: 0
+            license_product_no: null
+            bus: 0
+            target: 0
+            create_time: '2018-03-14T13:33:24Z'
+            lun: 0
+            object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            bootdevice: true
+            object_name: Ubunto 16.04 Storage
+            storage_type: storage
+        public_ips:
+          - object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            prefix: '1x:12:xx:12:12:12/32'
+            ip: 123.123.12.1
+            server_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            create_time: '2018-03-14T13:33:14Z'
+            family: 4
+          - object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            prefix: 123.123.12.1/128
+            ip: 123.123.12.1
+            server_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            create_time: '2018-03-14T13:33:16Z'
+            family: 6
+        networks:
+          - network_type: network
+            vlan: null
+            create_time: '2018-03-14T13:33:13Z'
+            ordering: 0
+            bootdevice: false
+            mac: '16:f7:22:9e:56:01'
+            vxlan: null
+            mcast: null
+            server_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            l3security: []
+            firewall_template_uuid: null
+            partner_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            object_name: Public Network test
+            object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            network_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            public_net: true
+            firewall: null
+            l2security: true
+        isoimages: []
+      legacy: false
+      memory: 2
+      console_token: $console_token
+      usage_in_minutes_memory: 47331
+      auto_recovery: true
+      create_time: '2018-03-14T13:33:13Z'
+      current_price: 9.491665
+      location_country: de
+      location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+      usage_in_minutes_cores: 0
+      object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      change_time: '2018-03-19T11:40:55Z'
+      availability_zone: null
+      location_iata: fra
+      labels: []
+      hardware_profile: default
+      location_name: de/fra
+      power: true
+      name: Ubunto 16.04
+      status: active
+
+  ServerBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/Server'
+    example:
+      x123xx1x-123x-1x12-123x-123xxx123x1x:
+        auto_recovery: true
+        availability_zone: null
+        current_price: 9.491665
+        power: true
+        status: active
+        cores: 1
+        object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        name: Ubunto 16.04
+        location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+        usage_in_minutes_cores: 17476
+        labels: []
+        hardware_profile: default
+        location_iata: fra
+        location_name: de/fra
+        legacy: false
+        memory: 2
+        create_time: '2018-03-14T13:33:13Z'
+        relations:
+          public_ips:
+            - prefix: '1x:12:xx:12:12:12/32'
+              create_time: '2018-03-14T13:33:14Z'
+              family: 4
+              ip: 123.123.12.1
+              object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+            - prefix: 123.123.12.1/128
+              create_time: '2018-03-14T13:33:16Z'
+              family: 6
+              ip: 123.123.12.1
+              object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+          isoimages: []
+          networks:
+            - bootdevice: false
+              firewall_template_uuid: null
+              vlan: null
+              mcast: null
+              vxlan: null
+              public_net: true
+              l2security: true
+              object_name: Public Network test
+              network_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+              create_time: '2018-03-14T13:33:13Z'
+              firewall: null
+              network_type: network
+              mac: '16:f7:22:9e:56:01'
+              partner_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+              l3security: []
+              ordering: 0
+              object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+          storages:
+            - bootdevice: true
+              target: 0
+              lun: 0
+              capacity: 11
+              object_name: Ubunto 16.04 Storage
+              controller: 0
+              create_time: '2018-03-14T13:33:24Z'
+              storage_type: storage
+              bus: 0
+              last_used_template: ec4ef18f-84df-42bb-b7c4-c2957635ee53
+              license_product_no: null
+              object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        usage_in_minutes_memory: 47331
+        change_time: '2018-03-19T11:40:55Z'
+        console_token: $console_token
+        location_country: de
+
+  ServerGetResponse:
+    type: object
+    properties:
+      server:
+        $ref: '#/definitions/Server'
+
+
+  ServersGetResponse:
+    type: object
+    properties:
+      servers:
+        $ref: '#/definitions/ServerBriefIndex'
+
+  ServerPowerStatus:
+    type: object
+    properties:
+      power:
+        type: boolean
+
+  StorageCreate:
+    type: object
+    required:
+    - "name"
+    - "capacity"
+    - "location_uuid"
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      capacity:
+        type: integer
+        description: "required (integer - minimum: 1 - maximum: 4096)"
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+      template:
+        type: object
+        description: "An object holding important values such as hostnames, passwords, and SSH keys."
+      hostname:
+        type: string
+        description: "Hostname to set for the installed storage. The running server will use this as its hostname. Valid only for public Linux and Windows templates."
+      template_uuid:
+        type: string
+        description: "The UUID of a template (public or private)."
+        format: uuid
+      password:
+        type: string
+        description: "The root (Linux) or Administrator (Windows) password to set for the installed storage. Valid only for public templates. The password has to be either plaintext or a crypt string (modular crypt format - MCF).."
+      password_type:
+        type: string
+        description: "(one of plain, crypt)"
+      shkeys:
+        type: string
+        description: "(array of any - minItems: 0)"
+      labels:
+        $ref: '#/definitions/labels'
+      storage_type:
+        type: string
+        description: "(one of storage, storage_high, storage_insane)"
+        enum:
+          - "storage"
+          - "storage_high"
+          - "storage_insane"
+
+    example:
+      name: "string"
+      capacity: 1
+      location_uuid: "45ed677b-3702-4b36-be2a-a2eab9827950"
+
+
+
+  StorageUpdate:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      capacity:
+        type: string
+      labels:
+        $ref: '#/definitions/labels'
+    example:
+      name: test
+      capacity: 10
+      labels:
+        - backup
+
+  Storage:
+    type: "object"
+    properties:
+      parent_uuid:
+        type: string
+        format: "uuid"
+        description: ""
+      labels:
+        $ref: '#/definitions/labels'
+      snapshots:
+        type: "array"
+        description: ""
+        items:
+          type: "string"
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      relations:
+        $ref: "#/definitions/relation"
+      name:
+        $ref: '#/definitions/name'
+      status:
+        $ref: '#/definitions/status'
+      location_country:
+        $ref: '#/definitions/location_country'
+      usage_in_minutes:
+        $ref: '#/definitions/usage_in_minutes'
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+      change_time:
+        $ref: '#/definitions/change_time'
+      storage_type:
+        type: "string"
+        description: "(one of storage, storage_high, storage_insane)"
+        enum: ["storage", "storage_high", "storage_insane"]
+      license_product_no:
+        type: "string"
+        description: "If a template has been used that requires a license key (e.g. Windows Servers) this shows the product_no of the license (see the /prices endpoint for more details)."
+      current_price:
+        $ref: '#/definitions/current_price'
+      create_time:
+        $ref: '#/definitions/create_time'
+      last_used_template:
+        type: "string"
+        description: "Indicates the UUID of the last used template on this storage "
+      capacity:
+        type: "integer"
+        description: "The capacity of a storage/ISO-Image/template/snapshot in GB."
+      location_name:
+        $ref: '#/definitions/location_name'
+      location_iata:
+        $ref: '#/definitions/location_iata'
+
+    example:
+      parent_uuid: "null"
+      labels: []
+      snapshots: []
+      object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      relations:
+        servers: []
+        snapshot_schedules: []
+      name: test
+      status: active
+      location_country: de
+      usage_in_minutes: 370
+      location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+      change_time: '2018-03-13T12:09:12Z'
+      storage_type: storage
+      license_product_no: "null"
+      current_price: 0.001628
+      create_time: '2018-03-13T12:09:12Z'
+      last_used_template: "null"
+      capacity: 10
+      location_name: de/fra
+      location_iata: fra
+
+  StorageBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/Storage'
+    example:
+      x123xx1x-123x-1x12-123x-123xxx123x1x:
+        change_time: '2018-03-13T09:24:23Z'
+        location_iata: fra
+        status: active
+        license_product_no: null
+        location_country: de
+        usage_in_minutes: 770
+        last_used_template: null
+        current_price: 0.003388
+        capacity: 10
+        location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+        storage_type: storage
+        parent_uuid: null
+        name: test Storage
+        location_name: de/fra
+        object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        snapshots: []
+        relations:
+          servers:
+            - bootdevice: true
+              target: 0
+              controller: 0
+              bus: 0
+              object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+              lun: 0
+              create_time: '2018-03-13T09:24:25Z'
+              object_name: tes
+          snapshot_schedules: []
+        labels: []
+        create_time: '2018-03-13T09:24:23Z'
+
+
+  StorageGetResponse:
+    type: object
+    properties:
+      storage:
+        $ref: '#/definitions/Storage'
+
+
+  StoragesGetResponse:
+    type: object
+    properties:
+      storages:
+        $ref: '#/definitions/StorageBriefIndex'
+
+  CreateResponse:
+    type: object
+    properties:
+      request_uuid:
+        type: string
+        format: uuid
+        description: request user ID.
+      object_uuid:
+        type: string
+        format: uuid
+        description: The user name.
+    example:
+      request_uuid: "x123xx1x-123x-1x12-123x-123xxx123x1x"
+      object_uuid: "690de890-13c0-4e76-8a01-e10ba8786e53"
+
+
+  NetworkCreate:
+    type: object
+    required:
+    - "name"
+    - "location_uuid"
+    properties:
+      name:
+        $ref: "#/definitions/name"
+      location_uuid:
+        $ref: "#/definitions/location_uuid"
+      l2security:
+        type: boolean
+        description: "Defines information about MAC spoofing protection (filters layer2 and ARP traffic based on MAC source). It can only be (de-)activated on a private network - the public network always has l2security enabled. It will be true if the network is public, and false if the network is private."
+      labels:
+        type: array
+        description: "List of labels."
+        items:
+          type: string
+    example:
+      name: "string"
+      location_uuid: "45ed677b-3702-4b36-be2a-a2eab9827950"
+      l2security: True
+
+
+
+  NetworkUpdate:
+    type: object
+    properties:
+      name:
+        $ref: "#/definitions/name"
+      l2security:
+        type: boolean
+        description: "Defines information about MAC spoofing protection (filters layer2 and ARP traffic based on MAC source). It can only be (de-)activated on a private network - the public network always has l2security enabled. It will be true if the network is public, and false if the network is private."
+    example:
+      name: new_name
+      l2security: false
+
+
+
+  Network:
+    type: "object"
+    properties:
+      location_country:
+        $ref: "#/definitions/location_country"
+      location_uuid:
+        $ref: "#/definitions/location_uuid"
+      public_net:
+        type: boolean
+        description: "True if the network is public. If private it will be false. Each private network is a secure and fully transparent 2-Layer network between servers. There is no limit on how many servers can be connected to the same private network."
+      object_uuid:
+        $ref: "#/definitions/object_uuid"
+      network_type:
+        type: string
+        enum: ["network", "network_high", "network_insane"]
+        description: "(one of network, network_high, network_insane)"
+      name:
+        $ref: "#/definitions/name"
+      delete_block:
+        type: boolean
+        description: "Defines if the object is administratively blocked. If true, it can not be deleted by the user."
+      status:
+        $ref: "#/definitions/status"
+      create_time:
+        $ref: "#/definitions/create_time"
+      l2security:
+        type: boolean
+        description: "Defines information about MAC spoofing protection (filters layer2 and ARP traffic based on MAC source). It can only be (de-)activated on a private network - the public network always has l2security enabled. It will be true if the network is public, and false if the network is private."
+      relations:
+        $ref: "#/definitions/relation"
+      labels:
+        $ref: "#/definitions/labels"
+      change_time:
+        $ref: "#/definitions/change_time"
+      location_iata:
+        $ref: "#/definitions/location_iata"
+      location_name:
+        $ref: "#/definitions/location_name"
+    example:
+      location_country: de
+      location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+      public_net: false
+      object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      network_type: network
+      name: test
+      delete_block: false
+      status: active
+      create_time: '2018-03-14T08:04:16Z'
+      l2security: false
+      relations:
+        vlans: []
+        servers: []
+      labels: []
+      change_time: '2018-03-14T08:04:16Z'
+      location_iata: fra
+      location_name: de/fra
+
+
+  NetworkBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/Storage'
+    example:
+      x123xx1x-123x-1x12-123x-123xxx123x1x:
+        location_country: de
+        location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+        public_net: false
+        object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        network_type: network
+        name: test
+        delete_block: false
+        status: active
+        create_time: '2018-03-14T08:04:16Z'
+        l2security: false
+        relations:
+          vlans: []
+          servers: []
+        labels: []
+        change_time: '2018-03-14T08:04:16Z'
+        location_iata: fra
+        location_name: de/fra
+
+
+  NetworkGetResponse:
+    type: object
+    properties:
+      network:
+        $ref: '#/definitions/Network'
+
+
+  NetworksGetResponse:
+    type: object
+    properties:
+      networks:
+        $ref: '#/definitions/NetworkBriefIndex'
+
+
+  EventResponse:
+    type: object
+    properties:
+      events:
+        type: array
+        items:
+          type: object
+          properties:
+            object_type:
+              type: string
+              description: "Type of object (server, storage, IP) etc."
+            request_uuid:
+              type: string
+              description: "The UUID of the event."
+              format: uuid
+            object_uuid:
+              type: string
+              description: "The UUID of the objects the event was executed on."
+              format: uuid
+            activity:
+              type: string
+              description: "The type of change."
+            request_type:
+              type: string
+              description: "The type of request."
+            request_status:
+              type: string
+              description: "True or false, whether the request was successful or not."
+            change:
+              type: string
+              description: "A detailed description of the change."
+            timestamp:
+              type: string
+              description: "Time the event was triggered."
+              format: date-time
+            user_uuid:
+              type: string
+              description: "The UUID of the user that triggered the event."
+              format: uuid
+
+
+
+
+
+
+
+  IpCreate:
+    type: object
+    required:
+    - "family"
+    - "location_uuid"
+    properties:
+      family:
+        type: integer
+        description: "Defines the IP Address family (v4 or v6)."
+        enum: [4,6]
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+      failover:
+        type: boolean
+        description: "Sets failover mode for this IP. If true, then this IP is no longer available for DHCP and can no longer be related to any server."
+      reverse_dns:
+        type: string
+        description: "Defines the reverse DNS entry for the IP Address (PTR Resource Record)."
+      labels:
+        $ref: '#/definitions/labels'
+
+    example:
+      family: 4
+      location_uuid: "45ed677b-3702-4b36-be2a-a2eab9827950"
+      failover: true
+
+  IpCreateResponse:
+    type: object
+    properties:
+      request_uuid:
+        type: string
+        description: request user ID.
+      ip:
+        type: string
+        description: ip_address defines the IP Address (v4 or v6).
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      prefix:
+        type: string
+        description: ip_prefix defines the IP prefix.
+    example:
+      request_uuid: 8e9a4818-d145-4aa3-918a-60cc32b37e96
+      ip: 123.123.12.1
+      object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      prefix: 123.123.12.1/32
+
+
+  IpUpdate:
+    type: object
+    properties:
+      failover:
+        type: boolean
+        description: "Sets failover mode for this IP. If true, then this IP is no longer available for DHCP and can no longer be related to any server."
+      reverse_dns:
+        type: string
+        description: "Defines the reverse DNS entry for the IP Address (PTR Resource Record)."
+      labels:
+        $ref: '#/definitions/labels'
+    example:
+      name: "update swagger ip"
+      l2security: true
+
+
+
+  Ip:
+    type: "object"
+    properties:
+      create_time:
+        $ref: '#/definitions/create_time'
+      status:
+        $ref: '#/definitions/status'
+      relations:
+        $ref: "#/definitions/relation"
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      location_country:
+        $ref: '#/definitions/location_country'
+      prefix:
+        type: string
+        description: "ip_prefix defines the IP prefix."
+      delete_block:
+        type: boolean
+        description: "Defines if the object is administratively blocked. If true, it can not be deleted by the user."
+      failover:
+        type: boolean
+        description: "Sets failover mode for this IP. If true, then this IP is no longer available for DHCP and can no longer be related to any server."
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+      location_name:
+        $ref: '#/definitions/location_name'
+      labels:
+        $ref: '#/definitions/labels'
+      change_time:
+        $ref: '#/definitions/change_time'
+      ip:
+        type: string
+        description: "Defines the IP Address (v4 or v6)."
+      family:
+        type: string
+        description: "The IP Address family (v4 or v6)."
+        enum: [4,6]
+      location_iata:
+        $ref: '#/definitions/location_iata'
+      reverse_dns:
+        type: string
+        description: "Defines the reverse DNS entry for the IP Address (PTR Resource Record)."
+      current_price:
+        $ref: '#/definitions/current_price'
+      usage_in_minutes:
+        $ref: '#/definitions/usage_in_minutes'
+      name:
+        $ref: '#/definitions/name'
+    example:
+      create_time: '2018-02-01T13:48:13Z'
+      status: active
+      relations:
+        loadbalancers: []
+        servers:
+          - create_time: '2018-02-20T11:51:18Z'
+            server_name: server with a new name2
+            server_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      location_country: de
+      prefix: 123.123.12.1/128
+      delete_block: false
+      failover: false
+      location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+      location_name: de/fra
+      labels: []
+      change_time: '2018-02-01T13:48:13Z'
+      ip: 123.123.12.1
+      family: 6
+      location_iata: fra
+      reverse_dns: static-123-123-123-123.ipv6.exampleserver.com
+      current_price: 0
+      usage_in_minutes: 0
+      name: Default IP
+
+  IpBrief:
+    type: "object"
+    properties:
+      create_time:
+        $ref: '#/definitions/create_time'
+      status:
+        $ref: '#/definitions/status'
+      relations:
+        $ref: "#/definitions/relation"
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      location_country:
+        $ref: '#/definitions/location_country'
+      prefix:
+        type: string
+        description: "ip_prefix defines the IP prefix."
+      delete_block:
+        type: boolean
+        description: "Defines if the object is administratively blocked. If true, it can not be deleted by the user."
+      failover:
+        type: boolean
+        description: "Sets failover mode for this IP. If true, then this IP is no longer available for DHCP and can no longer be related to any server."
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+      location_name:
+        $ref: '#/definitions/location_name'
+      labels:
+        $ref: '#/definitions/labels'
+      change_time:
+        $ref: '#/definitions/change_time'
+      ip:
+        type: string
+        description: "Defines the IP Address (v4 or v6)."
+      family:
+        type: string
+        description: "The IP Address family (v4 or v6)."
+        enum: [4,6]
+      location_iata:
+        $ref: '#/definitions/location_iata'
+      reverse_dns:
+        type: string
+        description: "Defines the reverse DNS entry for the IP Address (PTR Resource Record)."
+      current_price:
+        $ref: '#/definitions/current_price'
+      usage_in_minutes:
+        $ref: '#/definitions/usage_in_minutes'
+      name:
+        $ref: '#/definitions/name'
+      partner_uuid:
+        type: string
+        description: ""
+        format: uuid
+
+
+  IpBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/IpBrief'
+    example:
+      x123xx1x-123x-1x12-123x-123xxx123x1x:
+        create_time: '2018-02-01T13:48:13Z'
+        status: active
+        relations:
+          loadbalancers: []
+          servers:
+            - create_time: '2018-02-20T11:51:18Z'
+              server_name: server with a new name2
+              server_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        partner_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        location_country: de
+        prefix: 123.123.12.1/128
+        delete_block: false
+        failover: false
+        location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+        location_name: de/fra
+        labels: []
+        change_time: '2018-02-01T13:48:13Z'
+        ip: 123.123.12.1
+        family: 6
+        location_iata: fra
+        reverse_dns: static-123-123-123-123.ipv6.exampleserver.com
+        current_price: 0
+        usage_in_minutes: 0
+        name: Default IP
+
+
+  IpGetResponse:
+    type: object
+    properties:
+      ip:
+        $ref: '#/definitions/Ip'
+
+
+  IpsGetResponse:
+    type: object
+    properties:
+      ips:
+        $ref: '#/definitions/IpBriefIndex'
+
+  FirewallCreate:
+    type: object
+    properties:
+      name:
+        type: string
+      labels:
+        type: string
+      rules:
+        type: object
+    example:
+      name: test
+      labels:
+        - webmail
+      rules:
+        rules-v4-in:
+          - port: 20
+            protocol: tcp
+            order: 0
+            action: accept
+
+
+
+  FirewallUpdate:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      labels:
+        $ref: '#/definitions/labels'
+      rules:
+        type: object
+      private:
+        type: string
+        description: "If this is a private or public Firewall-Template"
+    example:
+      name: Updated Name
+      labels:
+      - webmail
+      rules:
+        rules-v4-in:
+        - port: 20
+          protocol: tcp
+          order: 0
+          action: accept
+        rules-v6-in:
+        - port: 22
+          protocol: tcp
+          order: 1
+          action: drop
+
+  Firewall:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/status'
+      labels:
+        $ref: '#/definitions/labels'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      change_time:
+        $ref: '#/definitions/change_time'
+      rules:
+        type: object
+      create_time:
+        $ref: '#/definitions/create_time'
+      private:
+        type: boolean
+        description: "If this is a private or public Firewall-Template"
+      relations:
+        $ref: "#/definitions/relation"
+      description:
+        type: string
+        description: "Description of the ISO-Image release"
+      location_name:
+        $ref: '#/definitions/location_name'
+      name:
+        $ref: '#/definitions/name'
+    example:
+      status: active
+      labels: []
+      object_uuid: 9a3fdd6e-fc2c-43a3-a8ac-6ec06898f9ce
+      change_time: '2017-10-18T10:05:15Z'
+      rules:
+       rules-v6-in:
+         - order: 0
+           protocol: tcp
+           action: accept
+           dst_port: '22'
+       rules-v4-in:
+         - order: 0
+           protocol: tcp
+           action: accept
+           dst_port: '22'
+       rules-v4-out: []
+       rules-v6-out: []
+      create_time: '2017-10-17T12:38:42Z'
+      private: false
+      relations:
+       networks: []
+      name: Webserver + SSH
+
+
+  FirewallBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/Firewall'
+    example:
+      x123xx1x-123x-1x12-123x-123xxx123x1x:
+        status: active
+        labels: []
+        object_uuid: 9a3fdd6e-fc2c-43a3-a8ac-6ec06898f9ce
+        change_time: '2017-10-18T10:05:15Z'
+        rules:
+         rules-v6-in:
+           - order: 0
+             protocol: tcp
+             action: accept
+             dst_port: '22'
+         rules-v4-in:
+           - order: 0
+             protocol: tcp
+             action: accept
+             dst_port: '22'
+         rules-v4-out: []
+         rules-v6-out: []
+        create_time: '2017-10-17T12:38:42Z'
+        private: false
+        relations:
+         networks: []
+        name: Webserver + SSH
+
+
+  FirewallGetResponse:
+    type: object
+    properties:
+      firewall:
+        $ref: '#/definitions/Firewall'
+
+
+  FirewallsGetResponse:
+    type: object
+    properties:
+      firewalls:
+        $ref: '#/definitions/FirewallBriefIndex'
+
+
+  IsoimageCreate:
+    type: object
+    required:
+    - "name"
+    - "source_url"
+    - "location_uuid"
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      source_url:
+        type: string
+        description: "network_source_url contains the source URL of the ISO-Image that it was originally fetched from."
+      labels:
+        $ref: '#/definitions/labels'
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+    example:
+      name: "swagger iso new"
+      source_url: "http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-server-amd64.iso?_ga=2.188975915.108704605.1521033305-403279979.1521033305"
+      location_uuid: "45ed677b-3702-4b36-be2a-a2eab9827950"
+
+
+  IsoimageUpdate:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      labels:
+        $ref: '#/definitions/labels'
+    example:
+      name: "swagger iso update"
+
+  Isoimage:
+    type: "object"
+    properties:
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      relations:
+        $ref: "#/definitions/relation"
+      description:
+        type: string
+        description: "Description of the ISO-Image release"
+      location_name:
+        $ref: '#/definitions/location_name'
+      source_url:
+        type: "string"
+        description: "network_source_url contains the source URL of the ISO-Image that it was originally fetched from."
+      labels:
+        $ref: '#/definitions/labels'
+      location_iata:
+        $ref: '#/definitions/location_iata'
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+      status:
+        $ref: '#/definitions/status'
+      create_time:
+        $ref: '#/definitions/create_time'
+      name:
+        $ref: '#/definitions/name'
+      version:
+        type: "string"
+        description: "Upstream version of the ISO-Image release"
+      location_country:
+        $ref: '#/definitions/location_country'
+      usage_in_minutes:
+        $ref: '#/definitions/usage_in_minutes'
+      private:
+        type: boolean
+        description: "Whether the ISO-Image is private or not."
+      change_time:
+        $ref: '#/definitions/change_time'
+      capacity:
+        type: "integer"
+        description: "The capacity of a storage/ISO-Image/template/snapshot in GB."
+      current_price:
+        $ref: '#/definitions/current_price'
+    example:
+      object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      relations:
+        servers: []
+      description: null
+      location_name: de/fra
+      source_url: 'http://de.releases.ubuntu.com/16.04.3/ubuntu-16.04.3-server-amd64.iso'
+      labels: []
+      location_iata: fra
+      location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+      status: active
+      create_time: '2017-10-25T12:39:23Z'
+      name: Ubuntu 16.04.03 LTS
+      version: null
+      location_country: de
+      usage_in_minutes: 0
+      private: false
+      change_time: '2017-10-26T15:52:34Z'
+      capacity: 1
+      current_price: 0
+
+
+  IsoimageBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/Isoimage'
+    example:
+      x123xx1x-123x-1x12-123x-123xxx123x1x:
+        object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        relations:
+          servers: []
+        description: null
+        location_name: de/fra
+        source_url: 'http://de.releases.ubuntu.com/16.04.3/ubuntu-16.04.3-server-amd64.iso'
+        labels: []
+        location_iata: fra
+        location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+        status: active
+        create_time: '2017-10-25T12:39:23Z'
+        name: Ubuntu 16.04.03 LTS
+        version: null
+        location_country: de
+        usage_in_minutes: 0
+        private: false
+        change_time: '2017-10-26T15:52:34Z'
+        capacity: 1
+        current_price: 0
+
+
+  IsoimageGetResponse:
+    type: object
+    properties:
+      isoimage:
+        $ref: '#/definitions/Isoimage'
+
+
+  IsoimagesGetResponse:
+    type: object
+    properties:
+      isoimages:
+        $ref: '#/definitions/IsoimageBriefIndex'
+
+  SshkeyCreate:
+    type: object
+    required:
+    - "name"
+    - "sshkey"
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      labels:
+        $ref: '#/definitions/labels'
+      sshkey:
+        type: string
+        description: "sshkey_string is the OpenSSH public key string (all key types are supported => ed25519, ecdsa, dsa, rsa, rsa1)"
+    example:
+      name: sshkey
+      sshkey: '{sshkey}}'
+
+
+  SshkeyUpdate:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      labels:
+        $ref: '#/definitions/labels'
+      sshkey:
+        type: string
+        description: "sshkey_string is the OpenSSH public key string (all key types are supported => ed25519, ecdsa, dsa, rsa, rsa1)"
+    example:
+      name: "new name"
+
+  Sshkey:
+    type: object
+    properties:
+      labels:
+        $ref: '#/definitions/labels'
+      user_uuid:
+        type: string
+        format: uuid
+      create_time:
+        $ref: '#/definitions/create_time'
+      status:
+        $ref: '#/definitions/status'
+      change_time:
+        $ref: '#/definitions/change_time'
+      name:
+        $ref: '#/definitions/name'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      sshkey:
+        type: string
+        description: "sshkey_string is the OpenSSH public key string (all key types are supported => ed25519, ecdsa, dsa, rsa, rsa1)."
+    example:
+      labels: []
+      user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      create_time: '2018-03-15T19:18:11Z'
+      status: active
+      change_time: '2018-03-15T19:18:11Z'
+      name: test2
+      object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      sshkey: '{sshkey}'
+
+
+  SshkeyBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/Sshkey'
+    example:
+      x123xx1x-123x-1x12-123x-123xxx123x1x:
+        change_time: '2018-03-15T18:13:07Z'
+        status: active
+        sshkey: '{sshkey}'
+        name: test
+        labels: []
+        user_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        create_time: '2018-03-15T18:13:07Z'
+        object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+
+
+
+  SshkeyGetResponse:
+    type: object
+    properties:
+      Sshkey:
+        $ref: '#/definitions/Sshkey'
+
+
+  SshkeysGetResponse:
+    type: object
+    properties:
+      Sshkeys:
+        $ref: '#/definitions/SshkeyBriefIndex'
+
+  Location:
+    type: object
+    properties:
+      iata:
+        $ref: '#/definitions/location_iata'
+      status:
+        $ref: '#/definitions/status'
+      labels:
+        $ref: '#/definitions/labels'
+      name:
+        $ref: '#/definitions/location_name'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      country:
+        $ref: '#/definitions/location_country'
+    example:
+      iata: fra
+      status: active
+      labels: []
+      name: de/fra
+      object_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+      country: de
+
+  LocationBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/Location'
+    example:
+      45ed677b-3702-4b36-be2a-a2eab9827950:
+        status: active
+        country: de
+        labels: []
+        name: de/fra
+        object_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+        iata: fra
+
+
+  LocationGetResponse:
+    type: object
+    properties:
+      location:
+        $ref: '#/definitions/Location'
+
+  LocationsGetResponse:
+    type: object
+    properties:
+      locations:
+        $ref: '#/definitions/LocationBriefIndex'
+
+
+  Template:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/status'
+      ostype:
+        type: string
+        description: "The operating system installed in the template."
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+      version:
+        type: string
+        description: "Description of the Template"
+      location_iata:
+        $ref: '#/definitions/location_iata'
+      change_time:
+        $ref: '#/definitions/change_time'
+      private:
+        type: boolean
+        description: "the object is private, the value will be true. Otherwise the value will be false."
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      license_product_no:
+        type: integer
+        description: "If a template has been used that requires a license key (e.g. Windows Servers) this shows the product_no of the license (see the /prices endpoint for more details)"
+      create_time:
+        $ref: '#/definitions/create_time'
+      usage_in_minutes:
+        $ref: '#/definitions/usage_in_minutes'
+      capacity:
+        type: integer
+        description: "The capacity of a storage/ISO-Image/template/snapshot in GB."
+      location_name:
+        $ref: '#/definitions/location_name'
+      distro:
+        type: string
+        description: ""
+      description:
+        type: string
+        description: "Description of the Template"
+      current_price:
+        $ref: '#/definitions/current_price'
+      location_country:
+        $ref: '#/definitions/location_country'
+    example:
+      status: active
+      ostype: windows
+      version: Windows Server 2016 Standard
+      location_iata: fra
+      change_time: '2017-10-30T11:50:35Z'
+      private: false
+      object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+      location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+      license_product_no: 800002
+      create_time: '2016-10-24T14:50:23Z'
+      usage_in_minutes: 0
+      name: Windows Server 2016
+      capacity: 32
+      location_name: de/fra
+      distro: Windows Server
+      description: SPLA-Licensed
+      current_price: 0
+      location_country: de
+
+
+  TemplateBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/Template'
+    example:
+      x123xx1x-123x-1x12-123x-123xxx123x1x:
+        status: active
+        ostype: windows
+        version: Windows Server 2016 Standard
+        location_iata: fra
+        change_time: '2017-10-30T11:50:35Z'
+        private: false
+        object_uuid: x123xx1x-123x-1x12-123x-123xxx123x1x
+        location_uuid: 45ed677b-3702-4b36-be2a-a2eab9827950
+        license_product_no: 800002
+        create_time: '2016-10-24T14:50:23Z'
+        usage_in_minutes: 0
+        name: Windows Server 2016
+        capacity: 32
+        location_name: de/fra
+        distro: Windows Server
+        description: SPLA-Licensed
+        current_price: 0
+        location_country: de
+
+  TemplateGetResponse:
+    type: object
+    properties:
+      location:
+        $ref: '#/definitions/Template'
+
+  TemplatesGetResponse:
+    type: object
+    properties:
+      locations:
+        $ref: '#/definitions/TemplateBriefIndex'
+
+
+  AccessKeyCreate:
+    type: object
+    properties:
+      secret_key:
+        type: string
+        description: "The object storage secret_key"
+      access_key:
+        type: string
+        description: "The object storage access_key"
+      user:
+        type: string
+        description: "Account this credentials belong to."
+
+  AccessKeyCreateResponse:
+    type: object
+    properties:
+      access_key:
+        type: object
+        properties:
+          secret_key:
+            type: string
+            description: "The object storage secret_key"
+          access_key:
+            type: string
+            description: "The object storage access_key"
+      request_uuid:
+        type: string
+        description: The unique id for the request.
+
+  AccessKey:
+    type: object
+    properties:
+      secret_key:
+        type: string
+        description: "The object storage secret_key"
+      access_key:
+        type: string
+        description: "The object storage access_key"
+      user:
+        type: string
+        description: "Account this credentials belong to."
+
+
+  AccessKeyBriefIndex:
+    type: array
+    items:
+      $ref: '#/definitions/AccessKey'
+
+  AccessKeyGetResponse:
+    type: object
+    properties:
+      access_key:
+        $ref: '#/definitions/AccessKey'
+    example:
+      access_key:
+        secret_key: '{secret_key}'
+        access_key: '{access_key}'
+
+  AccessKeysGetResponse:
+    type: object
+    properties:
+      access_keys:
+        $ref: '#/definitions/AccessKeyBriefIndex'
+    example:
+      access_keys:
+        - secret_key: '{secret_key}'
+          access_key: '{access_key}'
+        - secret_key: '{secret_key}'
+          access_key: '{access_key}'
+
+  Bucket:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      ussage:
+        type: object
+        description: The current usage of the bucket.
+        properties:
+          size_kb:
+            type: integer
+            description: The size of the the bucket (in kb)
+          num_objects:
+            type: integer
+            description: The number of files in the bucket
+
+  BucketBriefIndex:
+    type: array
+    items:
+      $ref: '#/definitions/Bucket'
+
+  BucketGetResponse:
+    type: object
+    properties:
+      Bucket:
+        $ref: '#/definitions/Bucket'
+
+  BucketsGetResponse:
+    type: object
+    properties:
+      Buckets:
+        $ref: '#/definitions/BucketBriefIndex'
+
+
+
+  Request:
+    type: object
+    properties:
+      create_time:
+        $ref: '#/definitions/create_time'
+      status:
+        $ref: '#/definitions/status'
+      message:
+        type: string
+
+  RequestGetResponse:
+    additionalProperties:
+      $ref: '#/definitions/Request'
+    example:
+      4e10fb40-47e3-4fd0-aaf3-c16335757f93:
+        create_time: '2018-06-04T11:51:34Z'
+        status: done
+        message: Success.
+
+  filters:
+    type: array
+    items:
+      type: object
+      properties:
+        operator:
+          type: string
+        field:
+          type: string
+        comparison_value:
+          type: integer
+
+  action_payload:
+    type: object
+
+
+  CasCreate:
+    type: object
+    required:
+    - "action_type"
+    - "name"
+    - "filters"
+    - "action_payload"
+    - "event_type"
+    properties:
+      action_payload:
+        type: object
+        description: "The payload you would like to fire if the event_types values pass the filters."
+      name:
+        $ref: '#/definitions/name'
+      labels:
+        $ref: '#/definitions/labels'
+      filters:
+        $ref: '#/definitions/filters'
+      status:
+        $ref: '#/definitions/status'
+      active:
+        type: boolean
+      event_type:
+        type: string
+        description: "The event_type you would like to track - you can find a list of all possible "
+      action_type:
+        type: string
+        description: "One of three values send_email, send_slack or http_request. Each of these will require a different set of values to be sent in the POST request. see the list here."
+        enum: ["send_email", "send_slack" , "http_request"]
+
+
+  CasTask:
+    type: object
+    properties:
+      action_type:
+        type: string
+        description: "A keyword describing the event executed when the task is triggered"
+        enum: ["send_email" ,"http_request" , "send_slack"]
+      change_time:
+        $ref: '#/definitions/change_time'
+      status:
+        $ref: '#/definitions/status'
+      labels:
+        $ref: '#/definitions/labels'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      name:
+        $ref: '#/definitions/name'
+      event_type:
+        type: string
+        description: "The event that will trigger the task"
+      action_payload:
+        $ref: '#/definitions/action_payload'
+      active:
+        type: string
+        description: "Defines if this task is currently active"
+      filters:
+        $ref: '#/definitions/filters'
+      create_time:
+        $ref: '#/definitions/create_time'
+
+  CasTaskBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/CasTask'
+
+
+
+  CasTaskGetResponse:
+    type: object
+    properties:
+      task:
+        $ref: '#/definitions/CasTask'
+
+
+  CasTasksGetResponse:
+    type: object
+    properties:
+      tasks:
+        $ref: '#/definitions/CasTaskBriefIndex'
+
+  PaasCreate:
+    type: object
+    required:
+    - "name"
+    - "paas_service_template_uuid"
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      paas_service_uuid:
+        type: string
+        format: uuid
+        description: "The template used to create the service, you can find an available list at the /service_templates endpoint."
+      labels:
+        $ref: '#/definitions/labels'
+      paas_security_zone_uuid:
+        type: string
+        description: "The UUID of the security zone that the service is running in."
+        format: uuid
+      resource_limit:
+        type: array
+        description: "An array of objects, allowing you to set resource limits."
+        items:
+          type: object
+          properties:
+            resource:
+              type: string
+              description: "The name of the resource you would like to cap."
+            limit:
+              type: integer
+              description: "The maximum number of the specific resource your service can use."
+
+
+  PaasCreateResponse:
+    type: object
+    properties:
+      request_uuid:
+        type: string
+        format: uuid
+        description: "The UUID identifying the request."
+      listen_ports:
+        type: object
+        description: "Contains the IPv6 address and port that the Service will listen to, you can use these details to connect internally to a service."
+        properties:
+          IPv6:
+            type: object
+            properties:
+              mysql:
+                type: integer
+                description: "The key mysql will change depending on the service, The value 3306 is the listening port of the application"
+      paas_service_uuid:
+        type: string
+        format: uuid
+        description: "The template used to create the service, you can find an available list at the /service_templates endpoint."
+      credentials:
+        $ref: '#/definitions/credentials'
+
+  PaasUpdateRequest:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      labels:
+        $ref: '#/definitions/labels'
+      resource_limit:
+        type: array
+        description: "An array of objects, allowing you to set resource limits."
+        items:
+          type: object
+          properties:
+            resource:
+              type: string
+              description: "The name of the resource you would like to cap."
+            limit:
+              type: integer
+              description: "The maximum number of the specific resource your service can use."
+
+  credentials:
+    type: array
+    description: "Contains the initial setup credentials for Service."
+    items:
+      type: object
+      properties:
+        password:
+          type: string
+          description: "The initial username to authenticate the Service."
+        username:
+          type: string
+          description: "The initial password to authenticate the Service."
+        type:
+          type: string
+          description: "The type of Service."
+
+  PaasService:
+    type: object
+    properties:
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      labels:
+        $ref: '#/definitions/labels'
+      credentials:
+        $ref: '#/definitions/credentials'
+      create_time:
+        $ref: '#/definitions/create_time'
+      listen_ports:
+        type: object
+        description: "Contains the IPv6 address and port that the Service will listen to, you can use these details to connect internally to a service."
+      security_zone_uuid:
+        type: string
+        description: "The UUID of the security zone that the service is running in."
+        format: uuid
+      service_template_uuid:
+        type: string
+        description: "The template used to create the service, you can find an available list at the /service_templates endpoint."
+        format: uuid
+      usage_in_minutes:
+        $ref: '#/definitions/usage_in_minutes'
+      current_price:
+        $ref: '#/definitions/current_price'
+      change_time:
+        $ref: '#/definitions/change_time'
+      status:
+        $ref: '#/definitions/status'
+      name:
+        $ref: '#/definitions/name'
+
+  PaasServiceBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/PaasService'
+
+
+  PaasServiceGetResponse:
+    type: object
+    properties:
+      task:
+        $ref: '#/definitions/PaasService'
+
+
+  PaasServicesGetResponse:
+    type: object
+    properties:
+      tasks:
+        $ref: '#/definitions/PaasServiceBriefIndex'
+
+  PaasServiceTemplate:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      category:
+        type: string
+        description: "Describes the catagory of the service."
+      labels:
+        $ref: '#/definitions/labels'
+      product_no:
+        type: integer
+        description: ""
+      resources:
+        type: object
+        description: "The amount of concurrent connections for the service."
+        properties:
+          memory:
+            type: integer
+            description: "The amount of memory required by the service, either RAM(MB) or SSD Storage(GB)"
+          connections:
+            type: integer
+            description: "The amount of concurrent connections for the service."
+      status:
+        $ref: '#/definitions/status'
+      parameters_schema:
+        type: array
+        description: ""
+        items:
+          type: string
+
+  PaasServiceTemplateIndex:
+    additionalProperties:
+      $ref: '#/definitions/PaasServiceTemplate'
+
+  PaasServiceTemplatesGetResponse:
+    type: object
+    properties:
+      paas_service_templates:
+        $ref: '#/definitions/PaasServiceTemplateIndex'
+    example:
+      paas_service_templates:
+        9dbe21ed-2033-4253-8228-b5f39b076f04:
+          object_uuid: 9dbe21ed-2033-4253-8228-b5f39b076f04
+          status: active
+          parameters_schema: {}
+          category: database
+          name: PostgreSQL 10.3 64GB (Gen 1)
+          product_no: 1200014
+          resources:
+            memory: 65536
+            connections: 4000
+          labels: []
+        56385ef4-5ec6-4aa4-9ff5-9cb10348875b:
+          object_uuid: 56385ef4-5ec6-4aa4-9ff5-9cb10348875b
+          status: active
+          parameters_schema: {}
+          category: key_value_store
+          name: Redis 4.0 8GB (Gen 1)
+          product_no: 1202013
+          resources:
+            memory: 8192
+          labels: []
+        9008f1f1-190e-4887-99f7-8a3e72fdd1f8:
+          object_uuid: 9008f1f1-190e-4887-99f7-8a3e72fdd1f8
+          status: active
+          parameters_schema: {}
+          category: database
+          name: PostgreSQL 10.3 16GB (Gen 1)
+          product_no: 1200012
+          resources:
+            memory: 16384
+            connections: 4000
+          labels: []
+        1b888615-4e84-444b-b112-94c110fb1d8d:
+          object_uuid: 1b888615-4e84-444b-b112-94c110fb1d8d
+          status: active
+          parameters_schema: {}
+          category: database
+          name: MySQL 5.7 64GB (Gen 1)
+          product_no: 1201014
+          resources:
+            memory: 65536
+            connections: 4000
+          labels: []
+        8175d5af-d974-456c-bd8e-b934770b3e6d:
+          object_uuid: 8175d5af-d974-456c-bd8e-b934770b3e6d
+          status: active
+          parameters_schema: {}
+          category: database
+          name: PostgreSQL 10.3 4GB (Gen 1)
+          product_no: 1200011
+          resources:
+            memory: 4096
+            connections: 4000
+          labels: []
+        f6c714c0-384b-4674-b9d9-d74ae338e1a1:
+          object_uuid: f6c714c0-384b-4674-b9d9-d74ae338e1a1
+          status: active
+          parameters_schema: {}
+          category: database
+          name: MySQL 5.7 16GB (Gen 1)
+          product_no: 1201012
+          resources:
+            memory: 16384
+            connections: 4000
+          labels: []
+        bb106b9a-2f96-44d9-bdf0-c568086124a1:
+          object_uuid: bb106b9a-2f96-44d9-bdf0-c568086124a1
+          status: active
+          parameters_schema: {}
+          category: key_value_store
+          name: Redis 4.0 4GB (Gen 1)
+          product_no: 1202012
+          resources:
+            memory: 4096
+          labels: []
+        a2367d6b-450b-44a8-bfab-0424bf826cf8:
+          object_uuid: a2367d6b-450b-44a8-bfab-0424bf826cf8
+          status: active
+          parameters_schema: {}
+          category: key_value_store
+          name: Redis 4.0 16GB (Gen 1)
+          product_no: 1202014
+          resources:
+            memory: 16384
+          labels: []
+        8bcb216c-65ec-4c93-925d-1b8feaa5c2c5:
+          object_uuid: 8bcb216c-65ec-4c93-925d-1b8feaa5c2c5
+          status: active
+          parameters_schema: {}
+          category: database
+          name: MySQL 5.7 4GB (Gen 1)
+          product_no: 1201011
+          resources:
+            memory: 4096
+            connections: 4000
+          labels: []
+        3211331b-f5d7-4826-884e-0aba4172df56:
+          object_uuid: 3211331b-f5d7-4826-884e-0aba4172df56
+          status: active
+          parameters_schema: {}
+          category: database
+          name: MySQL 5.7 32GB (Gen 1)
+          product_no: 1201013
+          resources:
+            memory: 32768
+            connections: 4000
+          labels: []
+        646c7dcf-7e0b-41b8-8f99-9b6dce0e26e4:
+          object_uuid: 646c7dcf-7e0b-41b8-8f99-9b6dce0e26e4
+          status: active
+          parameters_schema: {}
+          category: key_value_store
+          name: Redis 4.0 2GB (Gen 1)
+          product_no: 1202011
+          resources:
+            memory: 2048
+          labels: []
+        873ae463-d1bb-4305-9fce-622912140662:
+          object_uuid: 873ae463-d1bb-4305-9fce-622912140662
+          status: active
+          parameters_schema: {}
+          category: database
+          name: PostgreSQL 10.3 32GB (Gen 1)
+          product_no: 1200013
+          resources:
+            memory: 32768
+            connections: 4000
+          labels: []
+
+  PaasSecurityZoneCreate:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/name'
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+    example:
+      name: "new psz"
+      location_uuid: "45ed677b-3702-4b36-be2a-a2eab9827950"
+
+  PaasSecurityZoneCreateResponse:
+    type: object
+    properties:
+      request_uuid:
+        type: string
+        format: uuid
+      paas_security_zone_uuid:
+        type: string
+        format: uuid
+    example:
+      request_uuid: "0df82edc-b0b9-461f-a72c-f210ddaddfc8"
+      paas_security_zone_uuid: "da792f47-a2d2-48a5-974c-3446c8374e6d"
+
+  PaasSecurityZoneUpdate:
+    type: object
+    properties:
+      name:
+        type: string
+        description: "The new name you give to the security zone."
+      location_uuid:
+        type: string
+        format: uuid
+        description: "The new name you give to the security zone."
+      paas_security_zone_uuid:
+        type: string
+        format: uuid
+        description: "The UUID for the security zone you would like to update."
+    example:
+      name: new zone
+      labels:
+        - Test Zone
+
+  PaasSecurityZone:
+    type: object
+    properties:
+      location_country:
+        $ref: '#/definitions/location_country'
+      relations:
+        $ref: '#/definitions/relation'
+      create_time:
+        $ref: '#/definitions/create_time'
+      location_iata:
+        $ref: '#/definitions/location_iata'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      labels:
+        $ref: '#/definitions/labels'
+      location_name:
+        $ref: '#/definitions/location_name'
+      status:
+        $ref: '#/definitions/status'
+      location_uuid:
+        $ref: '#/definitions/location_uuid'
+      change_time:
+        $ref: '#/definitions/change_time'
+      name:
+        $ref: '#/definitions/name'
+
+  PaasSecurityZoneBriefIndex:
+    additionalProperties:
+      $ref: '#/definitions/PaasSecurityZone'
+
+  PaasSecurityZoneGetResponse:
+    type: object
+    properties:
+      paas_security_zone:
+        additionalProperties:
+          $ref: '#/definitions/PaasSecurityZone'
+
+  PaasSecurityZonesGetResponse:
+    type: object
+    properties:
+      paas_security_zone:
+        additionalProperties:
+          $ref: '#/definitions/PaasSecurityZoneBriefIndex'
+
+
+  LinkedIp:
+    type: object
+    properties:
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      family:
+        type: integer
+        description: "Either 4 or 6"
+        enum:
+          - 4
+          - 6
+      prefix:
+        type: integer
+        description: "The prefix of the IP Address."
+      create_time:
+        $ref: '#/definitions/create_time'
+      ip:
+        type: string
+        description: "The IP Address (v4 or v6)"
+
+  LinkedIpBrief:
+    type: object
+    properties:
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      family:
+        type: integer
+        description: "Either 4 or 6"
+        enum:
+          - 4
+          - 6
+      prefix:
+        type: integer
+        description: "The prefix of the IP Address."
+      create_time:
+        $ref: '#/definitions/create_time'
+      server_uuid:
+        type: string
+        description: "The UUID of the server that this IP is attached to."
+        format: uuid
+      ip:
+        type: string
+        description: "The IP Address (v4 or v6)"
+
+  LinkedIpsGetResponse:
+    type: object
+    properties:
+      ip_relations:
+        type: array
+        items:
+          $ref: '#/definitions/LinkedIpBrief'
+
+
+  LinkedIpGetResponse:
+    type: object
+    properties:
+      ip_relation:
+        $ref: '#/definitions/LinkedIp'
+
+
+  LinkIp:
+    type: object
+    properties:
+      object_uuid:
+        type: string
+        format: uuid
+    example:
+      object_uuid: "77ddfb4a-5b50-430d-99bf-4c4dec1e8d0b"
+
+
+  LinkedStorage:
+    type: object
+    properties:
+      storage_type:
+        type: string
+        description: "Indicates the speed of the storage. This may be (storage, storage_high or storage_insane)."
+      target:
+        type: integer
+        description: "Defines the SCSI target ID. The SCSI defines transmission routes like Serial Attached SCSI (SAS), Fibre Channel and iSCSI. The target ID is a device (e.g. disk)."
+      bus:
+        type: integer
+        description: "The SCSI bus id. The SCSI defines transmission routes like Serial Attached SCSI (SAS), Fibre Channel and iSCSI. Each SCSI device is addressed via a specific number. Each SCSI bus can have multiple SCSI devices connected to it."
+      capacity:
+        type: integer
+        description: "The capacity of a storage/ISO-Image/template/snapshot in GB."
+      license_product_no:
+        type: integer
+        description: "If a template has been used that requires a license key (e.g. Windows Servers) this shows the product_no of the license (see the /prices endpoint for more details)."
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      controller:
+        type: integer
+        description: "Defines the SCSI controller id. The SCSI defines transmission routes such as Serial Attached SCSI (SAS), Fibre Channel and iSCSI."
+      lun:
+        type: integer
+        description: "Is the common SCSI abbreviation of the Logical Unit Number. A lun is a unique identifier for a single disk or a composite of disks."
+      create_time:
+        $ref: '#/definitions/create_time'
+      last_used_template:
+        type: string
+        description: "Indicates the UUID of the last used template on this storage (inherited from snapshots)."
+        format: uuid
+      bootdevice:
+        type: boolean
+        description: "Defines if this object is the bootdevice. Storages, Networks and ISO-Images can have a bootdevice configured, but only one bootdevice per Storage, Network or ISO-Image. The boot order is as follows => Network > ISO-Image > Storage."
+      object_name:
+        $ref: '#/definitions/name'
+
+  LinkedStorageBrief:
+    type: object
+    properties:
+      storage_type:
+        type: string
+        description: "Indicates the speed of the storage. This may be (storage, storage_high or storage_insane)."
+      target:
+        type: integer
+        description: "Defines the SCSI target ID. The SCSI defines transmission routes like Serial Attached SCSI (SAS), Fibre Channel and iSCSI. The target ID is a device (e.g. disk)."
+      bus:
+        type: integer
+        description: "The SCSI bus id. The SCSI defines transmission routes like Serial Attached SCSI (SAS), Fibre Channel and iSCSI. Each SCSI device is addressed via a specific number. Each SCSI bus can have multiple SCSI devices connected to it."
+      capacity:
+        type: integer
+        description: "The capacity of a storage/ISO-Image/template/snapshot in GB."
+      license_product_no:
+        type: integer
+        description: "If a template has been used that requires a license key (e.g. Windows Servers) this shows the product_no of the license (see the /prices endpoint for more details)."
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      controller:
+        type: integer
+        description: "Defines the SCSI controller id. The SCSI defines transmission routes such as Serial Attached SCSI (SAS), Fibre Channel and iSCSI."
+      lun:
+        type: integer
+        description: "Is the common SCSI abbreviation of the Logical Unit Number. A lun is a unique identifier for a single disk or a composite of disks."
+      create_time:
+        $ref: '#/definitions/create_time'
+      server_uuid:
+        type: string
+        description: "The same as the object_uuid"
+        format: uuid
+      last_used_template:
+        type: string
+        description: "Indicates the UUID of the last used template on this storage (inherited from snapshots)."
+        format: uuid
+      bootdevice:
+        type: boolean
+        description: "Defines if this object is the bootdevice. Storages, Networks and ISO-Images can have a bootdevice configured, but only one bootdevice per Storage, Network or ISO-Image. The boot order is as follows => Network > ISO-Image > Storage."
+      object_name:
+        $ref: '#/definitions/name'
+
+
+  LinkedStoragesGetResponse:
+    type: object
+    properties:
+      storage_relations:
+        type: array
+        items:
+          $ref: '#/definitions/LinkedStorageBrief'
+
+
+  LinkedStorageGetResponse:
+    type: object
+    properties:
+      storage_relation:
+        $ref: '#/definitions/LinkedStorage'
+
+
+  LinkStorage:
+    type: object
+    required:
+    - "object_uuid"
+    properties:
+      object_uuid:
+        type: string
+        format: uuid
+        # required: true
+        description: "The UUID of the storage you are requesting"
+      bootdevice:
+        type: boolean
+        description: "Whether the server will boot from this storage device or not."
+    example:
+      object_uuid: "081b3a38-e4c0-419f-a7b3-58e3d9383fe5"
+      bootdevice: true
+
+  LinkedStorageUpdate:
+    type: object
+    properties:
+      ordering:
+        type: integer
+        description: "The ordering of the network interfaces. Lower numbers have lower PCI-IDs."
+      bootdevice:
+        type: boolean
+        description: "Whether the server boots from this network or not."
+      l3security:
+        type: string
+        description: "Defines information about IP prefix spoof protection (it allows source traffic only from the IPv4/IPv4 network prefixes). If empty, it allow no IPv4/IPv6 source traffic. If set to null, l3security is disabled (default)."
+    example:
+      bootdevice: true
+
+
+  LinkedNetwork:
+    type: object
+    properties:
+      network_type:
+        type: string
+        description: "(one of network, network_high, network_insane)"
+      l3security:
+        type: array
+        description: "Defines information about IP prefix spoof protection (it allows source traffic only from the IPv4/IPv4 network prefixes). If empty, it allow no IPv4/IPv6 source traffic. If set to null, l3security is disabled (default)."
+        items:
+          type: string
+      mcast:
+        type: string
+        description: ""
+      bootdevice:
+        type: boolean
+        description: "Defines if this object is the bootdevice. Storages, Networks and ISO-Images can have a bootdevice configured, but only one bootdevice per Storage, Network or ISO-Image. The boot order is as follows => Network > ISO-Image > Storage."
+      network_uuid:
+        type: string
+        description: "The UUID of the network you're requesting."
+        format: uuid
+      l2security:
+        type: string
+        description: "Defines information about MAC spoofing protection (filters layer2 and ARP traffic based on MAC source). It can only be (de-)activated on a private network - the public network always has l2security enabled. It will be true if the network is public, and false if the network is private."
+      vlan:
+        type: string
+        description: ""
+      mac:
+        type: string
+        description: "network_mac defines the MAC address of the network interface."
+      ordering:
+        type: string
+        description: "Defines the ordering of the network interfaces. Lower numbers have lower PCI-IDs."
+      firewall:
+        type: string
+        description: ""
+      firewall_template_uuid:
+        type: string
+        description: ""
+        format: uuid
+      object_name:
+        $ref: '#/definitions/name'
+      create_time:
+        $ref: '#/definitions/create_time'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      public_net:
+        type: boolean
+        description: "True if the network is public. If private it will be false. Each private network is a secure and fully transparent 2-Layer network between servers. There is no limit on how many servers can be connected to the same private network."
+      vxlan:
+        type: string
+        description: ""
+
+  LinkedNetworkBrief:
+    type: object
+    properties:
+      network_type:
+        type: string
+        description: "(one of network, network_high, network_insane)"
+      l3security:
+        type: array
+        description: "Defines information about IP prefix spoof protection (it allows source traffic only from the IPv4/IPv4 network prefixes). If empty, it allow no IPv4/IPv6 source traffic. If set to null, l3security is disabled (default)."
+        items:
+          type: string
+      mcast:
+        type: string
+        description: ""
+      bootdevice:
+        type: boolean
+        description: "Defines if this object is the bootdevice. Storages, Networks and ISO-Images can have a bootdevice configured, but only one bootdevice per Storage, Network or ISO-Image. The boot order is as follows => Network > ISO-Image > Storage."
+      network_uuid:
+        type: string
+        description: "The UUID of the network you're requesting."
+        format: uuid
+      l2security:
+        type: string
+        description: "Defines information about MAC spoofing protection (filters layer2 and ARP traffic based on MAC source). It can only be (de-)activated on a private network - the public network always has l2security enabled. It will be true if the network is public, and false if the network is private."
+      vlan:
+        type: string
+        description: ""
+      server_uuid:
+        type: string
+        description: "The UUID of the network you're requesting."
+        format: uuid
+      mac:
+        type: string
+        description: "network_mac defines the MAC address of the network interface."
+      ordering:
+        type: string
+        description: "Defines the ordering of the network interfaces. Lower numbers have lower PCI-IDs."
+      firewall:
+        type: string
+        description: ""
+      firewall_template_uuid:
+        type: string
+        description: ""
+        format: uuid
+      object_name:
+        $ref: '#/definitions/name'
+      create_time:
+        $ref: '#/definitions/create_time'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      public_net:
+        type: boolean
+        description: "True if the network is public. If private it will be false. Each private network is a secure and fully transparent 2-Layer network between servers. There is no limit on how many servers can be connected to the same private network."
+      vxlan:
+        type: string
+        description: ""
+
+  LinkedNetworksGetResponse:
+    type: object
+    properties:
+      network_relations:
+        type: array
+        items:
+          $ref: '#/definitions/LinkedNetworkBrief'
+
+
+  LinkedNetworkGetResponse:
+    type: object
+    properties:
+      network_relation:
+        $ref: '#/definitions/LinkedNetwork'
+
+
+  LinkNetwork:
+    type: object
+    required:
+      - network_uuid
+    properties:
+      object_uuid:
+        type: string
+        format: uuid
+    example:
+      object_uuid: "e753aa01-7f99-4325-9724-625c78e741b0"
+
+  LinkedNetworkUpdate:
+    type: object
+    properties:
+      ordering:
+        type: integer
+        description: "The ordering of the network interfaces. Lower numbers have lower PCI-IDs."
+      bootdevice:
+        type: boolean
+        description: "Whether the server boots from this network or not."
+      l3security:
+        type: string
+        description: "Defines information about IP prefix spoof protection (it allows source traffic only from the IPv4/IPv4 network prefixes). If empty, it allow no IPv4/IPv6 source traffic. If set to null, l3security is disabled (default)."
+    example:
+      ordering: 3
+      bootdevice: false
+      l3security: null
+
+
+  LinkedIsoimage:
+    type: object
+    properties:
+      bootdevice:
+        type: boolean
+        description: "Whether the server boots from this iso image or not."
+      object_name:
+        $ref: '#/definitions/name'
+      create_time:
+        $ref: '#/definitions/create_time'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+      private:
+        type: string
+        description: "Whether the ISO-Image is private or not."
+        format: date-time
+      server_uuid:
+        type: string
+        description: "The UUID of the server that holds this iso image."
+        format: uuid
+
+  LinkedIsoimageBrief:
+    type: object
+    properties:
+      bootdevice:
+        type: boolean
+        description: "Whether the server boots from this iso image or not."
+      object_name:
+        $ref: '#/definitions/name'
+      create_time:
+        $ref: '#/definitions/create_time'
+      object_uuid:
+        $ref: '#/definitions/object_uuid'
+
+
+  LinkedIsoimagesGetResponse:
+    type: object
+    properties:
+      network_relations:
+        type: array
+        items:
+          $ref: '#/definitions/LinkedIsoimageBrief'
+
+
+  LinkedIsoimageGetResponse:
+    type: object
+    properties:
+      network_relation:
+        $ref: '#/definitions/LinkedIsoimage'
+
+
+  LinkIsoimage:
+    type: object
+    required:
+      - object_uuid
+    properties:
+      object_uuid:
+        type: string
+        format: uuid
+        description: "The UUID of the storage you are requesting"
+    example:
+      object_uuid: "22f06c53-27a1-482f-94ed-1e464d259adf"
+
+  LinkedIsoimageUpdate:
+    type: object
+    properties:
+      bootdevice:
+        type: boolean
+      name:
+        type: string
+    example:
+      bootdevice: false
+      name: "update name"
+
+
+
+  object_uuid:
+    type: string
+    description: The UUID of an object is always unique, and refers to a specific object.
+    format: uuid
+
+  name:
+    type: string
+    description: The human-readable name of the object. It supports the full UTF-8 charset, with a maximum of 64 characters.
+
+  labels:
+    type: array
+    description: list of labels
+    items:
+      type: string
+
+  create_time:
+    type: string
+    description: Defines the date and time the object was initially created.
+    format: date-time
+
+  change_time:
+    type: string
+    description: Defines the date and time of the last object change.
+    format: date-time
+
+  location_uuid:
+    type: string
+    description: Helps to identify which datacenter an object belongs to.
+    format: uuid
+
+  location_name:
+    type: string
+    description: The human-readable name of the location. It supports the full UTF-8 charset, with a maximum of 64 characters.
+    format: uuid
+
+  location_country:
+    type: string
+    description: Formatted by the 2 digit country code (ISO 3166-2) of the host country.
+    format: uuid
+
+  location_iata:
+    type: string
+    description: Uses IATA airport code, which works as a location identifier.
+    format: uuid
+
+  status:
+    type: "string"
+    description: "status indicates the status of the object."
+
+  current_price:
+    type: integer
+    format: float
+    description: The price for the current period since the last bill.
+
+  usage_in_minutes:
+    type: integer
+    description: Total minutes the object has been running.
+
+

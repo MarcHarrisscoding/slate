@@ -1,7 +1,9 @@
 @charset "utf-8";
 @import 'normalize';
 @import 'variables';
+@import 'skincolors';
 @import 'icon-font';
+@import 'font';
 // @import 'rtl'; // uncomment to switch to RTL format
 
 /*
@@ -48,19 +50,22 @@ html, body {
 }
 
 .toc-wrapper {
-  transition: left 0.3s ease-in-out;
-
+  transition: all 0.3s ease-in-out;
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
-  z-index: 30;
-  top: 0;
+  // z-index: 30;
   left: 0;
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
   font-size: 13px;
   font-weight: bold;
+  top: $top;
+  font-family: MuseoSansRounded-500;
+  font-weight: normal;
+  font-style: normal;
+  z-index: 2;
 
   // language selector for mobile devices
   .lang-selector {
@@ -73,31 +78,47 @@ html, body {
 
   // This is the logo at the top of the ToC
   .logo {
+    margin: 10px 5% 10px 5%;
     display: block;
-    max-width: 100%;
+    max-width: 90%;
+    width: 90%;
     margin-bottom: $logo-margin;
   }
 
   &>.search {
     position: relative;
-
+    border-bottom: 1px solid $search-border;
+    color: $nav-text;
+      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: $nav-text;
+      }
+      ::-moz-placeholder { /* Firefox 19+ */
+        color: $nav-text;
+      }
+      :-ms-input-placeholder { /* IE 10+ */
+        color: $nav-text;
+      }
+      :-moz-placeholder { /* Firefox 18- */
+        color: $nav-text;
+      }
     input {
       background: $nav-bg;
-      border-width: 0 0 1px 0;
-      border-color: $search-box-border-color;
-      padding: 6px 0 6px 20px;
+      border-width: 0;
+      border-color: $search-border;
+      padding: 13px 0 14px 15px;
       box-sizing: border-box;
-      margin: $nav-v-padding $nav-padding;
       width: $nav-width - 30;
-      outline: none;
       color: $nav-text;
+      outline: none;
       border-radius: 0; /* ios has a default border radius */
+      font-size: 18px;
+
     }
 
-    &:before {
+    &:after {
       position: absolute;
-      top: 17px;
-      left: $nav-padding;
+      top: 18px;
+      left: 170px;
       color: $nav-text;
       @extend %icon-search;
     }
@@ -113,9 +134,11 @@ html, body {
     transition-duration: 180ms;
     transition-timing-function: ease-in-out;
     background: $nav-subitem-bg;
+    color: $nav-text;
     &.visible {
       height: 30%;
       margin-bottom: 1em;
+      color: $nav-text;
     }
 
     li {
@@ -128,7 +151,8 @@ html, body {
       text-decoration: none;
 
       &:hover {
-        text-decoration: underline;
+        text-decoration: none;
+        color: $nav-active-text;
       }
     }
   }
@@ -171,13 +195,13 @@ html, body {
 
   .toc-h2 {
     padding-left: $nav-padding + $nav-indent;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .toc-footer {
     padding: 1em 0;
     margin-top: 1em;
-    border-top: 1px dashed $nav-footer-border-color;
+    border-top: 1px solid $nav-footer-border-color;
 
     li,a {
       color: $nav-text;
@@ -197,16 +221,22 @@ html, body {
 }
 
 .toc-link, .toc-footer li {
-  padding: 0 $nav-padding 0 $nav-padding;
+  padding: 3px $nav-padding 3px $nav-padding;
   display: block;
   overflow-x: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   text-decoration: none;
   color: $nav-text;
   transition-property: background;
   transition-timing-function: linear;
   transition-duration: 130ms;
+  line-height: 1.8;
+  > button {
+    padding: 10px;
+  }
+}
+
+.toc-footer li {
+  text-align: center;
 }
 
 // button to show navigation on mobile devices
@@ -215,7 +245,7 @@ html, body {
     display: block;
     $side-pad: $main-padding / 2 - 8px;
     padding: $side-pad $side-pad $side-pad;
-    background-color: rgba($main-bg, 0.7);
+    background-color: rgba($main-bg, 0.9);
     transform-origin: 0 0;
     transform: rotate(-90deg) translate(-100%, 0);
     border-radius: 0 0 0 5px;
@@ -223,9 +253,9 @@ html, body {
   padding: 0 1.5em 5em 0; // increase touch size area
   display: none;
   position: fixed;
-  top: 0;
+  top: $top;
   left: 0;
-  z-index: 100;
+  z-index: 4;
   color: #000;
   text-decoration: none;
   font-weight: bold;
@@ -236,7 +266,8 @@ html, body {
     vertical-align: bottom;
   }
 
-  transition: left 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+
 
   &:hover { opacity: 1; }
   &.open {left: $nav-width}
@@ -250,9 +281,10 @@ html, body {
 .page-wrapper {
   margin-left: $nav-width;
   position: relative;
-  z-index: 10;
+  z-index: 1;
   background-color: $main-bg;
   min-height: 100%;
+  top:$top;
 
   padding-bottom: 1px; // prevent margin overflow
 
@@ -273,7 +305,7 @@ html, body {
   .lang-selector {
     position: fixed;
     z-index: 50;
-    border-bottom: 5px solid $lang-select-active-bg;
+    border-bottom: 1px solid #ccc;
   }
 }
 
@@ -286,18 +318,26 @@ html, body {
     float:left;
     color: $lang-select-text;
     text-decoration: none;
-    padding: 0 10px;
+    padding: 10px 15px 7px 15px;
     line-height: 30px;
     outline: 0;
 
     &:active, &:focus {
-      background-color: $lang-select-pressed-bg;
+      //background-color: $lang-select-pressed-bg;
       color: $lang-select-pressed-text;
+      border-bottom: 2px solid $lang-select-active-text;
+    }
+
+    &:hover {
+    color: $lang-select-pressed-text;
+    border-bottom: 2px solid $lang-select-active-text;
+    transition-duration: 0.1s;
     }
 
     &.active {
-      background-color: $lang-select-active-bg;
+      // background-color: $lang-select-active-bg;
       color: $lang-select-active-text;
+      border-bottom: 2px solid $lang-select-active-text;
     }
   }
 
@@ -331,6 +371,7 @@ html, body {
     padding: 0 $main-padding;
     box-sizing: border-box;
     display: block;
+    position: relative;
 
     @extend %left-col;
   }
@@ -346,12 +387,12 @@ html, body {
 
   h1 {
     @extend %header-font;
-    font-size: 25px;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    font-size: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin-bottom: $h1-margin-bottom;
     margin-top: 2em;
-    border-top: 1px solid #ccc;
+    // border-top: 1px solid #ccc; // ruining jump-to links
     border-bottom: 1px solid #ccc;
     background-color: #fdfdfd;
   }
@@ -363,13 +404,12 @@ html, body {
 
   h2 {
     @extend %header-font;
-    font-size: 19px;
-    margin-top: 4em;
-    margin-bottom: 0;
-    border-top: 1px solid #ccc;
-    padding-top: 1.2em;
-    padding-bottom: 1.2em;
-    background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
+    font-size: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    // border-top: 1px solid #ccc; // ruining jump-to links
+    border-bottom: 1px solid #ccc;
+    background-color: #fdfdfd;
   }
 
   // h2s right after h1s should bump right up
@@ -412,6 +452,7 @@ html, body {
       padding: 5px 10px;
       border-bottom: 1px solid #ccc;
       vertical-align: bottom;
+      background-color: none;
     }
 
     td {
@@ -428,6 +469,25 @@ html, body {
 
     tr:nth-child(even)>td {
       background-color: lighten($main-bg,2.4%);
+    }
+
+    tbody > tr > td > em {
+      color: red;
+    }
+
+    tr > td > ul {
+      margin: 0;
+      list-style: none;
+      padding: 0;
+      &> li > ul {
+        padding-left: 15px;
+        margin: 0;
+        &> li > ul {
+        padding-left: 15px;
+        margin: 0;
+        list-style: none;
+      }
+      }
     }
   }
 
@@ -468,13 +528,17 @@ html, body {
     margin-bottom: 1.5em;
     background: $aside-notice-bg;
     line-height: 1.6;
+    color: black;
+    
 
     &.warning {
       background-color: $aside-warning-bg;
+      color: black;
     }
 
     &.success {
       background-color: $aside-success-bg;
+      color: black;
     }
   }
 
@@ -514,6 +578,7 @@ html, body {
   pre, blockquote {
     background-color: $code-bg;
     color: #fff;
+    position: relative;
 
     margin: 0;
     width: $examples-width;
@@ -539,6 +604,7 @@ html, body {
     padding-top: 2em;
     padding-bottom: 2em;
     padding: 2em $main-padding;
+    min-height: 171px;
   }
 
   blockquote {
@@ -546,6 +612,7 @@ html, body {
       background-color: $code-annotation-bg;
       padding: $code-annotation-padding 2em;
       color: #eee;
+      box-shadow: inset white 0px 0px 1px 0px;
     }
   }
 }
@@ -603,6 +670,59 @@ html, body {
 
   %right-col + %left-col {
     margin-top: $main-padding;
+  } 
+    /*Make dropdown links appear inline*/
+    // #header > ul {
+    //     position: static;
+    //     display: none;
+    // }
+    // /*Create vertical spacing*/
+    // #header > ul > li {
+    //     border-bottom: 1px solid white;
+    //     width: 100%;
+    //     clear:both;
+    //     background: $header-bg;
+
+    // }
+    // #header > ul > li:nth-child(1) {
+    //   border-top: 1px solid white;
+    // }
+    // /*Make all menu links full width*/
+    // #header > ul > li > a {
+    //     width: 100%;
+    // }
+    // /*Display 'show menu' link*/
+    // .show-menu {
+    //     display: block !important;
+    // }
+      .toc-wrapper, .page-wrapper, #nav-button {
+        top: $mobile-top !important;
+      }
+
+    #header {
+      text-align: center !important;
+      height: 3.5rem !important;
+      line-height: 3.5rem !important;
+        ul {
+          display: flex; 
+     } li {
+          float:none !important;
+          display: inline-block !important;
+          padding: 0 !important;
+          width: calc(100% / 2);
+            :last-child {
+              // margin-right: 10px
+            }
+          a {
+            width: calc(100% / 2);
+            display: unset !important;
+            font-size: 12px;
+            font-weight: normal;
+          }
+      }
+      .logo {
+        opacity:0 !important;
+    }
   }
 }
 
@@ -613,3 +733,122 @@ html, body {
 .highlight, .highlight .w {
   background-color: $code-bg;
 }
+
+/*Style 'show menu' label button and hide it by default*/
+.show-menu {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: #fff;
+    text-align: right;
+    padding-right: 15px;
+    display: none;
+    font-size: 22px;
+}
+/*Hide checkbox*/
+input[type=checkbox]{
+    display: none;
+}
+/*Show menu when invisible checkbox is checked*/
+input[type=checkbox]:checked ~ #menu{
+    display: block;
+}
+.activeBg {
+// background: #fff;
+color: #6fb8f0;
+}
+
+.copy_button {
+  position: absolute; 
+  bottom: 15px;
+  left: 15px;
+  color: #cccccc;
+  font-size: 24px;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+      position: absolute; 
+    bottom: 15px;
+    left: 15px;
+    color: #a9a9a9;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+.copyPopup {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+}
+
+.sm_txt {
+  font-size: 12px;
+  position: absolute;
+  top: 5px;
+  left: 25px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .7s ease-in-out;
+  color: #a9a9a9;
+}
+
+.feedback {
+    color: #bfbfbf;
+    display: inline;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 12px;
+    padding: 5px 0;
+    background: none;
+    border: none;
+    outline: none;
+  &:hover {
+    color: #a9a9a9;
+    cursor: pointer;
+  }
+}
+
+// modal stuff
+
+// [data-tooltip] {
+//     display: inline-block;
+//     position: relative;
+//     cursor: help;
+//     padding: 4px;
+// }
+
+// [data-tooltip]:before {
+//     content: attr(data-tooltip);
+//     display: none;
+//     position: absolute;
+//     background: #000;
+//     color: #fff;
+//     padding: 4px 8px;
+//     font-size: 14px;
+//     line-height: 1.4;
+//     min-width: 100px;
+//     text-align: center;
+//     border-radius: 4px;
+// }
+
+// [data-tooltip]:after {
+//     content: '';
+//     display: none;
+//     position: absolute;
+//     width: 0;
+//     height: 0;
+//     border-color: transparent;
+//     border-style: solid;
+// }
+
+// [data-tooltip]:hover:before,
+// [data-tooltip]:hover:after {
+//     display: block;
+//     z-index: 50;
+// }
+
+
+@import 'skin';
